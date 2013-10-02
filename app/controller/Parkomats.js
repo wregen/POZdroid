@@ -9,9 +9,6 @@ Ext.define('Poznan.controller.Parkomats', {
             tabList: 'tabList',
             main: 'main'
         },
-        routes: {
-            
-        },
         control: {
             tabMap: {
                 maprender: 'onMapRender'
@@ -21,8 +18,8 @@ Ext.define('Poznan.controller.Parkomats', {
             }
         }
     },
-    //called when the Application is launched, remove if not needed
     launch: function(app) {
+        this.getTabList().on('painted', this.loadParkomats, this, {delay:300, single: true});
     },
     onItemTap: function(view, idx, target, rec) {
         var me = this;
@@ -30,7 +27,10 @@ Ext.define('Poznan.controller.Parkomats', {
         me.setMarker(rec);
     },
     onMapRender: function() {
-        var me = this;
+    },
+    loadParkomats: function() {
+        //set up refs to the two stores
+        Ext.getStore('Parkomats').loadFromLocalStorage();
     },
     setMarker: function(rec) {
         var me = this,

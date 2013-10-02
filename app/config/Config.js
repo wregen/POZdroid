@@ -11,7 +11,7 @@ Ext.define('Poznan.config.Config', {
 //        relativeAjaxRedirect: '../redirect.php'
     },
     urls: {
-        parkomaty: 'http://www.poznan.pl/featureserver/featureserver.cgi/parkomaty_wgs/?maxFeatures=100'
+        parkomaty: 'http://www.poznan.pl/featureserver/featureserver.cgi/parkomaty_wgs/'//?maxFeatures=10'
     },
     constructor: function(config) {
         this.initConfig(config);
