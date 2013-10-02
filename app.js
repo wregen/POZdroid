@@ -15,7 +15,6 @@ Ext.application({
 
     requires: [
         'Ext.MessageBox',
-        'Ext.device.Connection',
         'POZdroid.config.Config'
     ],
 
@@ -47,9 +46,8 @@ Ext.application({
         '1496x2048': 'resources/startup/1496x2048.png'
     },
 
-    launch: function() {
+    preLaunch: function() {
         var me = this;
-
         if (this.isConnected()) {
             me.doLaunch();
         } else {
@@ -62,7 +60,7 @@ Ext.application({
             });
         }
     },
-    doLaunch: function() {
+    launch: function() {
         //Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
         // Initialize the main view

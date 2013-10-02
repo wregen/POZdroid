@@ -7,7 +7,8 @@ Ext.define('POZdroid.controller.Parkomats', {
         refs: {
             tabMap: 'tabMap',
             tabList: 'tabList',
-            main: 'main'
+            main: 'main',
+            closeBtn: 'main button[iconCls=delete]'
         },
         control: {
             tabMap: {
@@ -15,16 +16,22 @@ Ext.define('POZdroid.controller.Parkomats', {
             },
             tabList: {
                 itemtap: 'onItemTap'
+            },
+            closeBtn: {
+                tap: 'onTapClose'
             }
         }
     },
     launch: function(app) {
-        this.getTabList().on('painted', this.loadParkomats, this, {delay:300, single: true});
+        this.getTabList().on('painted', this.loadParkomats, this, {delay: 300, single: true});
     },
     onItemTap: function(view, idx, target, rec) {
         var me = this;
         me.getMain().setActiveItem(1);
         me.setMarker(rec);
+    },
+    onTapClose: function() {
+        navigator.app.exitApp();
     },
     onMapRender: function() {
     },

@@ -1,2 +1,3 @@
 sencha app build native
-adb install ./build\Poznan\native\POZdroid.apk
+rem adb install ./build/native-package-mobile/POZdroid/packager.json/POZdroid.apk
+adb install .\cordova\platforms\android\bin\POZdroid-debug.apk

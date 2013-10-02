@@ -13,7 +13,11 @@ Ext.define('POZdroid.view.tab.ParkomatList', {
         items: {
             docked: 'top',
             xtype: 'titlebar',
-            title: 'Wybierz parkomat'
+            title: 'Wybierz parkomat',
+            items: [{
+                    iconCls: 'delete',
+                    align: 'right'
+                }]
         }
     }
 });
