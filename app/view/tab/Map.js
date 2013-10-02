@@ -1,4 +1,4 @@
-Ext.define('Poznan.view.tab.Map', {
+Ext.define('POZdroid.view.tab.Map', {
     extend: 'Ext.Map',
     id: 'tabMap',
     xtype: 'tabMap',

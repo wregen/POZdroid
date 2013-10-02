@@ -35,6 +35,15 @@ Ext.define("Ext.chart.series.sprite.Cartesian", {
                 dataMaxY: 'number',
 
                 /**
+                 * @cfg {Array} Data range derived from all the series bound to the x-axis.
+                 */
+                rangeX: 'data',
+                /**
+                 * @cfg {Array} Data range derived from all the series bound to the y-axis.
+                 */
+                rangeY: 'data',
+
+                /**
                  * @cfg {Object} [dataY=null] Data items on the y-axis.
                  */
                 dataY: 'data',
@@ -168,7 +177,7 @@ Ext.define("Ext.chart.series.sprite.Cartesian", {
 
     /**
      * Does a binary search of the data on the x-axis using the given key.
-     * @param key
+     * @param {String} key
      * @return {*}
      */
     binarySearch: function (key) {
@@ -232,10 +241,10 @@ Ext.define("Ext.chart.series.sprite.Cartesian", {
 
     /**
      * Render the given visible clip range.
-     * @param surface
-     * @param ctx
-     * @param clip
-     * @param region
+     * @param {Ext.draw.Surface} surface
+     * @param {Ext.draw.engine.Canvas/Ext.draw.engine.SvgContext} ctx
+     * @param {Array} clip
+     * @param {Arrary} region
      */
     renderClipped: Ext.emptyFn,
 

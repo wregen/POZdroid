@@ -1,4 +1,4 @@
-Ext.define('Poznan.model.Parkomat', {
+Ext.define('POZdroid.model.Parkomat', {
     extend: 'Ext.data.Model',
     config: {
         idProperty: 'id',

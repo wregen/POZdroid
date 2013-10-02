@@ -1,4 +1,4 @@
-Ext.define('Poznan.controller.Parkomats', {
+Ext.define('POZdroid.controller.Parkomats', {
     extend: 'Ext.app.Controller',
     config: {
         stores: [

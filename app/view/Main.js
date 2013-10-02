@@ -1,11 +1,11 @@
-Ext.define('Poznan.view.Main', {
+Ext.define('POZdroid.view.Main', {
     extend: 'Ext.tab.Panel',
     xtype: 'main',
     requires: [
         'Ext.TitleBar',
         'Ext.Video',
-        'Poznan.view.tab.ParkomatList',
-        'Poznan.view.tab.Map'
+        'POZdroid.view.tab.ParkomatList',
+        'POZdroid.view.tab.Map'
     ],
     config: {
         scroll: false,

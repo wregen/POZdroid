@@ -1,5 +1,12 @@
 {
+    /**
+     * The application's namespace, used by Sencha Command to generate classes
+     */
     "name": "POZdroid",
+
+    /**
+     * The file path to this application's front HTML document, relative to this app.json file
+     */
     "indexHtmlPath": "index.html",
 
     /**
@@ -9,7 +16,7 @@
      * This value is needed when build to resolve your application's dependencies if it requires server-side resources
      * that are not accessible via file system protocol.
      */
-    "url": "http://localhost/poznan/index.html",
+    "url": null,
 
     /**
      * List of all JavaScript assets in the right execution order.
@@ -33,13 +40,11 @@
      */
     "js": [
         {
-            "path": "http://maps.google.com/maps/api/js?sensor=true",
-            "x-bootstrap": true,
-            "update": "delta",
-            "remote": true
+            "path": "touch/sencha-touch.js",
+            "x-bootstrap": true
         },
         {
-            "path": "touch/sencha-touch.js",
+            "path": "bootstrap.js",
             "x-bootstrap": true
         },
         {
@@ -67,7 +72,8 @@
      */
     "css": [
         {
-            "path": "resources/css/app.css",
+            //"path": "resources/css/app.css",
+            "path": "touch/resources/css/cupertino.css",
             "update": "delta"
         }
     ],
@@ -107,7 +113,8 @@
      * File / directory name matchers to ignore when copying to the builds, must be valid regular expressions
      */
     "ignore": [
-        "\.svn$"
+        "\.svn$",
+        "\.git$"
     ],
 
     /**
@@ -126,5 +133,5 @@
      * Uniquely generated id for this application, used as prefix for localStorage keys.
      * Normally you should never change this value.
      */
-    "id": "f46ec56a-d882-4fbd-ad75-6d0aa8c630bd"
+    "id": "e9d823ba-5201-49ac-8b15-482209288b81"
 }

@@ -1,11 +1,10 @@
-Ext.define('Poznan.store.Parkomats', {
+Ext.define('POZdroid.store.Parkomats', {
     extend: 'Ext.data.Store',
     requires: [
         'Ext.data.proxy.LocalStorage',
         'Ext.data.JsonP',
-        'Poznan.ux.OfflineSyncStore',
-        'Poznan.model.Parkomat',
-        'Poznan.config.Config'
+        'POZdroid.model.Parkomat',
+        'POZdroid.config.Config'
     ],
     config: {
         proxy: {
@@ -14,7 +13,7 @@ Ext.define('Poznan.store.Parkomats', {
                 type: 'json'
             }
         },
-        model: 'Poznan.model.Parkomat',
+        model: 'POZdroid.model.Parkomat',
         sorters: {
             property: 'ulica',
             direction: 'ASC'
@@ -50,7 +49,7 @@ Ext.define('Poznan.store.Parkomats', {
                 ls = window.localStorage;
 
         Ext.data.JsonP.request({
-            url: Poznan.config.Config.urls.parkomaty,
+            url: POZdroid.config.Config.urls.parkomaty,
             callbackKey: 'callback',
             success: function(result) {
                 var json = Ext.encode(result.features);

@@ -1,4 +1,4 @@
-Ext.define('Poznan.config.Config', {
+Ext.define('POZdroid.config.Config', {
     singleton: true,
     config: {
 //        /* DATABASE SETTINGS */

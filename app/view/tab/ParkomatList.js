@@ -1,4 +1,4 @@
-Ext.define('Poznan.view.tab.ParkomatList', {
+Ext.define('POZdroid.view.tab.ParkomatList', {
     extend: 'Ext.dataview.List',
     xtype: 'tabList',
     config: {

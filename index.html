@@ -2,7 +2,7 @@
 <html manifest="" lang="en-US">
 <head>
     <meta charset="UTF-8">
-    <title>Poznan</title>
+    <title>POZdroid</title>
     <style type="text/css">
          /**
          * Example of an initial loading indicator.
@@ -11,7 +11,7 @@
          */
         html, body {
             height: 100%;
-            background-color: #666666
+            background-color: #1985D0
         }
 
         #appLoadingIndicator {
@@ -31,7 +31,6 @@
             background-color: #FFFFFF;
             display: inline-block;
             height: 30px;
-            font-size: 18px;
             -webkit-border-radius: 15px;
             margin: 0 5px;
             width: 30px;
@@ -43,7 +42,7 @@
                 opacity: 0.8
             }
             50% {
-                opacity: 0.0
+                opacity: 0
             }
             100% {
                 opacity: 0.8
@@ -51,9 +50,10 @@
         }
     </style>
     <!-- The line below must be kept intact for Sencha Command to build your application -->
-    <script id="microloader" type="text/javascript" src="touch/microloader/development.js"></script>
+    <script id="microloader" type="text/javascript" src=".sencha/app/microloader/development.js"></script>
 </head>
 <body>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <div id="appLoadingIndicator">
         <div></div>
         <div></div>
