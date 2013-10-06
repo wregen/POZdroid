@@ -16,7 +16,7 @@
      * This value is needed when build to resolve your application's dependencies if it requires server-side resources
      * that are not accessible via file system protocol.
      */
-    "url": null,
+    "url": "http://localhost/POZdroid/index.html",
 
     /**
      * List of all JavaScript assets in the right execution order.
@@ -43,6 +43,10 @@
 			"path": "cordova.js",
 			"remote": true
 		},
+        {
+            "path": "resources/js/markerclusterer_compiled.js",
+            "update": "delta"
+        },
         {
             "path": "touch/sencha-touch.js",
             "x-bootstrap": true
@@ -89,7 +93,8 @@
          * List of items in the CACHE MANIFEST section
          */
         "cache": [
-            "index.html"
+            "index.html",
+            "resources/images/parkomat-48"
         ],
         /**
          * List of items in the NETWORK section
@@ -108,8 +113,9 @@
      */
     "resources": [
 	"config.xml",
-        "resources/images",
+        "resources/js",
         "resources/icons",
+        "resources/images",
         "resources/startup"
     ],
 

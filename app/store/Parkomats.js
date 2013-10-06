@@ -22,10 +22,10 @@ Ext.define('POZdroid.store.Parkomats', {
             groupFn: function(record) {
                 return record.get('ulica');
             }
-        },
-        listeners: {
-            beforeload: function() {
-            }
+//        },
+//        listeners: {
+//            load: function(store, opts) {
+//            }
         }
     },
     loadFromLocalStorage: function() {
@@ -39,7 +39,7 @@ Ext.define('POZdroid.store.Parkomats', {
             me.getRemoteData();
         } else {
             obj = Ext.decode(json);
-            me.setData(obj);
+            me.setData(obj.features);
         }
     },
     getRemoteData: function() {
@@ -47,13 +47,11 @@ Ext.define('POZdroid.store.Parkomats', {
                 keyName = this.config.storeId,
                 keyTsName = keyName + 'Ts',
                 ls = window.localStorage;
-
-        Ext.data.JsonP.request({
+        s = new Date();
+        Ext.Ajax.request({
             url: POZdroid.config.Config.urls.parkomaty,
-            callbackKey: 'callback',
-            success: function(result) {
-                var json = Ext.encode(result.features);
-                ls.setItem(keyName, json);
+            success: function(resp, opts) {
+                ls.setItem(keyName, resp.responseText);
                 me.loadFromLocalStorage();
             }
         });

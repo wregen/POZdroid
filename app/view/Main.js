@@ -1,21 +1,53 @@
 Ext.define('POZdroid.view.Main', {
-    extend: 'Ext.tab.Panel',
-    xtype: 'main',
+    extend: 'Ext.Container',
+    xtype: 'pozMain',
     requires: [
         'Ext.TitleBar',
-        'Ext.Video',
-        'POZdroid.view.tab.ParkomatList',
-        'POZdroid.view.tab.Map'
+        'POZdroid.view.Welcome',
+        'POZdroid.view.Settings',
+        'POZdroid.view.Map'
     ],
     config: {
+        fullscreen: true,
+        layout: "card",
         scroll: false,
-        autoMaximize: true,
-        tabBarPosition: 'bottom',
         activeItem: 0,
         items: [{
-                xtype: 'tabList'
+                docked: 'top',
+                xtype: 'toolbar',
+                title: 'POZdroid',
+                items: [{
+                        itemId: 'menu',
+                        iconCls: 'list',
+                        ui: 'plain',
+                        align: 'left',
+                        action: 'menu'
+                    },{
+                        xtype: 'spacer'
+                    },{
+                        itemId: 'pozMap',
+                        iconCls: 'maps',
+                        ui: 'plain',
+                        align: 'right',
+                        hidden: true
+                    }]
             }, {
-                xtype: 'tabMap'
+                itemId: 'pozWelcome',
+                xtype: 'pozWelcome'
+            }, {
+                itemId: 'pozMap',
+                xtype: 'pozMap'
+            }, {
+                itemId: 'pozSettings',
+                xtype: 'pozSettings'
             }]
+//        listeners: {
+//            'painted': function(me) {
+//                Ext.get(me.dom).on('swipe', function(event, target) {
+//                    if (event.direction === 'right' && Ext.fly(target).dom.nodeName !== 'CANVAS')
+//                        Ext.Viewport.toggleMenu("left");
+//                });
+//            }
+//        }
     }
 });

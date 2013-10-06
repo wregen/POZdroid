@@ -5,10 +5,10 @@ Ext.define('POZdroid.controller.Parkomats', {
             'Parkomats'
         ],
         refs: {
-            tabMap: 'tabMap',
-            tabList: 'tabList',
-            main: 'main',
-            closeBtn: 'main button[iconCls=delete]'
+            tabMap: 'pozMap',
+            tabList: 'pozList',
+            main: 'pozMain',
+            closeBtn: 'pozMain button[iconCls=delete]'
         },
         control: {
             tabMap: {
@@ -26,9 +26,14 @@ Ext.define('POZdroid.controller.Parkomats', {
         this.getTabList().on('painted', this.loadParkomats, this, {delay: 300, single: true});
     },
     onItemTap: function(view, idx, target, rec) {
-        var me = this;
+        var me = this,
+                tabMap = me.getTabMap(),
+                map = tabMap.getMap();
+        // we need wait till map is painted
+        tabMap.on('painted', function() {
+            me.setMarker(rec);
+        }, me, {single: true});
         me.getMain().setActiveItem(1);
-        me.setMarker(rec);
     },
     onTapClose: function() {
         navigator.app.exitApp();

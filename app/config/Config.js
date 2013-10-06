@@ -10,8 +10,12 @@ Ext.define('POZdroid.config.Config', {
 //        useAjaxRedirect: true,
 //        relativeAjaxRedirect: '../redirect.php'
     },
+    parkomatsPainted: [],
     urls: {
-        parkomaty: 'http://www.poznan.pl/featureserver/featureserver.cgi/parkomaty_wgs/?maxFeatures=10'
+        parkomaty: 'http://www.poznan.pl/featureserver/featureserver.cgi/parkomaty_wgs/all.json?bbox='
+    },
+    icons: {
+        parkomat : './resources/images/parkomat-48.png'
     },
     constructor: function(config) {
         this.initConfig(config);

@@ -1,10 +1,41 @@
+
+$base-color: #231f20;
+
+//$dark-theme: false !default;
+//$background-color: #f9f9f9;
+//$foreground-color: #d2d2d2;
+//$secondary-color: #e6e6e6;
+//$primary-text-color: #231f20;
+//$secondary-text-color: #818285;
+//
+//@if $dark-theme == true {
+//	$background-color: #323232;
+//	$foreground-color: #5b5b5b;
+//	$secondary-color: #3a3a3a;
+//	$primary-text-color: #fff;
+//	$secondary-text-color: #808183;
+//}
+
 // The following two lines import the default Sencha Touch theme. If you are building
 // a new theme, remove them and the add your own CSS on top of the base CSS (which
 // is already included in your app.json file).
 @import 'sencha-touch/default';
 @import 'sencha-touch/default/all';
 
+//@import 'sencha-touch/cupertino';
+//@import 'sencha-touch/cupertino/all';
+
 // Custom code goes here..
 
 // Examples of using the icon mixin:
 // @include icon('user');
+@include icon("bank");
+@include icon("user");
+@include icon("maps");
+@include icon("list");
+
+@import "menu";
+
+body, .x-fullscreen {
+    background: #000 !important;
+}
