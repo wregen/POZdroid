@@ -748,6 +748,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "POZdroid.controller.Parkomats": [],
   "POZdroid.model.Parkomat": [],
   "POZdroid.store.Parkomats": [],
+  "POZdroid.ux.Map": [],
   "POZdroid.ux.MenuButton": [],
   "POZdroid.view.Main": [],
   "POZdroid.view.Map": [],
@@ -1696,6 +1697,9 @@ Ext.ClassManager.addNameAliasMappings({
   "POZdroid.controller.Parkomats": [],
   "POZdroid.model.Parkomat": [],
   "POZdroid.store.Parkomats": [],
+  "POZdroid.ux.Map": [
+    "widget.map"
+  ],
   "POZdroid.ux.MenuButton": [
     "widget.menubutton"
   ],

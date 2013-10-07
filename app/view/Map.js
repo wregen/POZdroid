@@ -1,22 +1,17 @@
 Ext.define('POZdroid.view.Map', {
-    extend: 'Ext.Map',
+    extend: 'POZdroid.ux.Map',
     requires: [
-        'Ext.TitleBar'
     ],
     xtype: 'pozMap',
     config: {
+        useCurrentLocation: false,
         mapOptions: {
             zoom: 18,
             maxZoom: 20,
             minZoom: 12,
             draggable: true,
-            center: new google.maps.LatLng(52.408306, 16.933596),
             visualRefresh: true,
-            overviewMapControl: true,
-//            mapTypeControl: false,
-            mapTypeControlOptions: {
-                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-            }
+            overviewMapControl: true
         },
         mapListeners: {
             dragend: function(pozMap) {
@@ -27,6 +22,7 @@ Ext.define('POZdroid.view.Map', {
             }
         },
         listeners: {
+            painted: 'onPainted',
             maprender: function(pozMap, map, e) {
                 var gm = (window.google || {}).maps;
                 Ext.defer(function() {

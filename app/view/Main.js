@@ -22,9 +22,9 @@ Ext.define('POZdroid.view.Main', {
                         ui: 'plain',
                         align: 'left',
                         action: 'menu'
-                    },{
+                    }, {
                         xtype: 'spacer'
-                    },{
+                    }, {
                         itemId: 'pozMap',
                         iconCls: 'maps',
                         ui: 'plain',
@@ -41,13 +41,5 @@ Ext.define('POZdroid.view.Main', {
                 itemId: 'pozSettings',
                 xtype: 'pozSettings'
             }]
-//        listeners: {
-//            'painted': function(me) {
-//                Ext.get(me.dom).on('swipe', function(event, target) {
-//                    if (event.direction === 'right' && Ext.fly(target).dom.nodeName !== 'CANVAS')
-//                        Ext.Viewport.toggleMenu("left");
-//                });
-//            }
-//        }
     }
 });

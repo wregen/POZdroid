@@ -8,8 +8,16 @@
                 height: 100%;
                 background-color: #000
             }
+            .splash {
+                position:absolute;
+                margin-left: 10px;
+                margin-top: 10px;
+                color:#ffffff;
+                font-size:50px;
+                font-weight: 900;
+                font-style: italic;
+            }
         </style>
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script> 
         <!-- The line below must be kept intact for Sencha Command to build your application -->
         <script type="text/javascript">/**
  * Sencha Blink - Testing
@@ -187,11 +195,9 @@
         }
     }
 
-})(this);Ext.blink({"id":"e9d823ba-5201-49ac-8b15-482209288b81","js":[{"path":"cordova.js","remote":true},{"path":"resources/js/markerclusterer_compiled.js","update":"delta"},{"path":"app.js","update":"delta"}],"css":[{"path":"resources/css/app.css","update":"delta"}]});</script>
+})(this);Ext.blink({"id":"e9d823ba-5201-49ac-8b15-482209288b81","js":[{"path":"cordova.js","remote":true},{"path":"app.js","update":"delta"}],"css":[{"path":"resources/css/app.css","update":"delta"}]});</script>
     </head>
     <body>
-        <div style="display:none">
-            <img src="./resources/images/parkomat-48.png" />
-        </div>
+        <div class="splash">POZdroid ...</div>
     </body>
 </html>

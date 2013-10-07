@@ -17,13 +17,15 @@ Ext.application({
         'Ext.MessageBox',
         'POZdroid.view.Menu',
         'POZdroid.config.Config',
-        'Ext.device.Splashscreen'
+        'Ext.device.Splashscreen',
+        'Ext.device.Connection',
+        'Ext.device.Notification'
     ],
     views: [
         'Main'
     ],
     stores: [
-        'Parkomats'
+//        'Parkomats'
     ],
     controllers: [
 //        'Parkomats',
@@ -31,31 +33,19 @@ Ext.application({
         'Map'
     ],
     isIconPrecomposed: true,
-    preLaunch: function() {
-        var me = this;
-        if (this.isConnected()) {
-            me.doLaunch();
-        } else {
-            Ext.device.Notification.show({
-                title: 'Internet Connection Required',
-                message: 'The application requires Internet access. Turn on Internet connection and go back to the application.',
-                callback: function() {
-                    me.launch();
-                }
-            });
-        }
-    },
     launch: function() {
         var me = this;
         // Require to allow CORS requests
         Ext.Ajax.setUseDefaultXhrHeader(false);
-
-        if (navigator.splashscreen) {
-            navigator.splashscreen.show();
-            setTimeout(function() {
-                navigator.splashscreen.hide();
-            }, 5000);
+        if (!me.isConnected()) {
+            me.showMsgAndClose();
         }
+//        if (navigator.splashscreen) {
+//            navigator.splashscreen.show();
+//            setTimeout(function() {
+//                navigator.splashscreen.hide();
+//            }, 2000);
+//        }
         // Initialize the main view
         var main = Ext.create('POZdroid.view.Main'),
                 menu = Ext.create('POZdroid.view.Menu');
@@ -66,18 +56,26 @@ Ext.application({
             cover: true
         });
         me.setMenuWidth(menu);
+        Ext.Viewport.on('resize', Ext.bind(me.setMenuWidth, me, [menu], false));
+    },
+    showMsgAndClose: function() {
+        Ext.device.Notification.alert({
+            message: 'The app requires active internet connetion. Click OK, start network and run the app again. Thank you!',
+            title: 'Internet Connection Required',
+            callback: function() {
+                navigator.app.exitApp();
+            },
+            buttonName: 'OK'
+        });
+        Ext.device.Notification.vibrate();
     },
     setMenuWidth: function(menu) {
-        var fn = function(v, o, w, h, e1, e2, menu) {
-            if (o === 'landscape') {
-                menu.setWidth('30%');
-            } else {
-                menu.setWidth('70%');
-            }
-        };
-        fn(null, Ext.Viewport.getOrientation(), null, null, null, null, menu);
-        Ext.Viewport.on('orientationchange', Ext.bind(fn, this, [menu], true));
-        
+        var o = Ext.Viewport.getOrientation();
+        if (o === 'landscape') {
+            menu.setWidth('30%');
+        } else {
+            menu.setWidth('70%');
+        }
     },
     isConnected: function() {
         var c = Ext.device.Connection.isOnline();

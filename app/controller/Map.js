@@ -1,21 +1,29 @@
 Ext.define('POZdroid.controller.Map', {
     extend: 'Ext.app.Controller',
+    requires: [
+        'Ext.Ajax'
+    ],
     config: {
         refs: {
             map: 'pozMap'
         },
         control: {
             'pozMap': {
-                activate: 'showParkomatsIfRendered'
+                afterpainted: 'onPainted'
             }
         }
     },
     launch: function() {
+        var me = this;
+        me.markers = [];
+        me.markerCluster = {};
+        me.getMap().on('bounds_changed', me.showParkomats, me, {buffer: 1000});
+    },
+    onPainted: function() {
         var me = this,
                 map = me.getMap().getMap();
-        me.markers = [];
         me.markerCluster = new MarkerClusterer(map, me.markers);
-        me.getMap().on('bounds_changed', me.showParkomats, me, {buffer: 1000});
+        me.showParkomatsIfRendered(me.getMap());
     },
     showParkomatsIfRendered: function(pozMap) {
         var me = this;
@@ -31,31 +39,36 @@ Ext.define('POZdroid.controller.Map', {
         var me = this,
                 map = pozMap.getMap(),
                 bounds = map.getBounds(),
-                arr = bounds.toUrlValue().split(','),
                 url = POZdroid.config.Config.urls.parkomaty,
-                params = [arr[1], arr[0], arr[3], arr[2]].join(',');
-        Ext.Ajax.request({
-            url: url + params,
-            scope: me,
-            success: function(result) {
-                var json = Ext.decode(result.responseText),
-                        l = json.features.length,
-                        paintedP = POZdroid.config.Config.parkomatsPainted,
-                        i;
-                for (i = 0; i < l; i++) {
-                    var id = json.features[i].id;
-                    if (Ext.Array.indexOf(paintedP, id) === -1) {
-                        marker = me.placeMarker(json.features[i]);
-                        paintedP.push(id);
-                        if (Ext.Array.indexOf(me.markers, marker) === -1) {
-                            me.markers.push(marker);
+                arr,
+                params;
+        if (bounds !== undefined) {
+            arr = bounds.toUrlValue().split(',');
+            params = [arr[1], arr[0], arr[3], arr[2]].join(',');
+            Ext.Ajax.request({
+                url: url + params,
+                scope: me,
+                success: function(result) {
+                    var json = Ext.decode(result.responseText),
+                            l = json.features.length,
+                            paintedP = POZdroid.config.Config.parkomatsPainted,
+                            i;
+                    for (i = 0; i < l; i++) {
+                        var id = json.features[i].id;
+                        if (Ext.Array.indexOf(paintedP, id) === -1) {
+                            marker = me.placeMarker(json.features[i]);
+                            paintedP.push(id);
+                            if (Ext.Array.indexOf(me.markers, marker) === -1) {
+                                me.markers.push(marker);
+                            }
                         }
                     }
+                    me.markerCluster.clearMarkers();
+                    me.markerCluster.addMarkers(me.markers);
                 }
-                me.markerCluster.clearMarkers();
-                me.markerCluster.addMarkers(me.markers);
-            }
-        });
+            });
+        }
+
     },
     placeMarker: function(o) {
         var me = this,

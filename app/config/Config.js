@@ -12,10 +12,15 @@ Ext.define('POZdroid.config.Config', {
     },
     parkomatsPainted: [],
     urls: {
-        parkomaty: 'http://www.poznan.pl/featureserver/featureserver.cgi/parkomaty_wgs/all.json?bbox='
+        parkomaty: 'http://www.poznan.pl/featureserver/featureserver.cgi/parkomaty_wgs/all.json?bbox=',
+        gmap: 'http://maps.googleapis.com/maps/api/js?sensor=true&callback=preInitialize',
+        markercluster: './resources/js/markerclusterer_compiled.js'
     },
     icons: {
-        parkomat : './resources/images/parkomat-48.png'
+        parkomat: './resources/images/parkomat-48.png'
+    },
+    gmap: {
+        defaultcenter: [52.40723, 16.93701]//[52.408306, 16.933596]
     },
     constructor: function(config) {
         this.initConfig(config);

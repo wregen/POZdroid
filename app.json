@@ -44,10 +44,6 @@
 			"remote": true
 		},
         {
-            "path": "resources/js/markerclusterer_compiled.js",
-            "update": "delta"
-        },
-        {
             "path": "touch/sencha-touch.js",
             "x-bootstrap": true
         },
@@ -94,7 +90,12 @@
          */
         "cache": [
             "index.html",
-            "resources/images/parkomat-48"
+            "resources/images/parkomat-48.png",
+            "resources/images/m1.png",
+            "resources/images/m2.png",
+            "resources/images/m3.png",
+            "resources/images/m4.png",
+            "resources/images/m5.png",
         ],
         /**
          * List of items in the NETWORK section
