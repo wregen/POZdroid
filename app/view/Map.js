@@ -4,11 +4,12 @@ Ext.define('POZdroid.view.Map', {
     ],
     xtype: 'pozMap',
     config: {
+        appConfig: POZdroid.config.Config,
         useCurrentLocation: false,
         mapOptions: {
             zoom: 18,
             maxZoom: 20,
-            minZoom: 12,
+            minZoom: 10,
             draggable: true,
             visualRefresh: true,
             overviewMapControl: true

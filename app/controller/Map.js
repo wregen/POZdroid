@@ -10,20 +10,39 @@ Ext.define('POZdroid.controller.Map', {
         control: {
             'pozMap': {
                 afterpainted: 'onPainted'
+            },
+            'pozMain > toolbar > button[action=mylocation]': {
+                tap: 'showMyLocation'
             }
         }
     },
     launch: function() {
-        var me = this;
+        var me = this,
+                pozMap = me.getMap();
         me.markers = [];
         me.markerCluster = {};
-        me.getMap().on('bounds_changed', me.showParkomats, me, {buffer: 1000});
+        me.myLocationMarker = null;
+        pozMap.on('bounds_changed', me.showParkomats, me, {buffer: 500});
+        pozMap.on('geoupdated', me.processMyLocation, me);
     },
     onPainted: function() {
         var me = this,
-                map = me.getMap().getMap();
+                pozMap = me.getMap(),
+                map = pozMap.getMap();
         me.markerCluster = new MarkerClusterer(map, me.markers);
-        me.showParkomatsIfRendered(me.getMap());
+        me.showParkomatsIfRendered(pozMap);
+    },
+    showMyLocation: function() {
+        var me = this,
+                pozMap = me.getMap(),
+                map = pozMap.getMap();
+        pozMap.setGeo(true);
+    },
+    processMyLocation: function(pozMap, geo) {
+        var gm = (window.google || {}).maps,
+                latLng = new gm.LatLng(geo.getLatitude(), geo.getLongitude());
+        pozMap.setMapCenter(latLng);
+        this.placeMyLocationMarker(latLng);
     },
     showParkomatsIfRendered: function(pozMap) {
         var me = this;
@@ -56,7 +75,7 @@ Ext.define('POZdroid.controller.Map', {
                     for (i = 0; i < l; i++) {
                         var id = json.features[i].id;
                         if (Ext.Array.indexOf(paintedP, id) === -1) {
-                            marker = me.placeMarker(json.features[i]);
+                            marker = me.placeParkomatMarker(json.features[i]);
                             paintedP.push(id);
                             if (Ext.Array.indexOf(me.markers, marker) === -1) {
                                 me.markers.push(marker);
@@ -70,7 +89,7 @@ Ext.define('POZdroid.controller.Map', {
         }
 
     },
-    placeMarker: function(o) {
+    placeParkomatMarker: function(o) {
         var me = this,
                 map = me.getMap().getMap(),
                 gm = (window.google || {}).maps,
@@ -94,5 +113,20 @@ Ext.define('POZdroid.controller.Map', {
             infowindow.open(map, m);
         });
         return m;
+    },
+    placeMyLocationMarker: function(latLng) {
+        var me = this,
+                map = me.getMap().getMap(),
+                gm = (window.google || {}).maps;
+        if (me.myLocationMarker && me.myLocationMarker.setMap) {
+            me.myLocationMarker.setMap(null);
+        }
+        me.myLocationMarker = new gm.Marker({
+            position: latLng,
+            map: map,
+            animation: gm.Animation.BOUNCE,
+            title: 'My current location',
+            flat: true
+        });
     }
 });

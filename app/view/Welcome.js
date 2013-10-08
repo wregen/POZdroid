@@ -8,13 +8,13 @@ Ext.define('POZdroid.view.Welcome', {
         title: 'Welcome view',
         items: [
             {
-                xtype: 'panel',
+                xtype: 'container',
                 flex: 1,
                 style: 'background-color: #5E99CC;'
             },
             {
-                xtype: 'panel',
-                styleHtmlContent : true,
+                xtype: 'container',
+                styleHtmlContent: true,
                 flex: 4,
                 html: '<div id="content">' +
                         '<div id="siteNotice">' +

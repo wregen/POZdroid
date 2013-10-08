@@ -12,6 +12,7 @@ Ext.define('POZdroid.ux.Map', {
          * @event centerchange
          * @event typechange
          * @event zoomchange
+         * @event geoupdated
          */
 
         baseCls: Ext.baseCSSPrefix + 'map',
@@ -19,7 +20,8 @@ Ext.define('POZdroid.ux.Map', {
         map: null,
         geo: null,
         mapOptions: {},
-        mapListeners: null
+        mapListeners: null,
+        appConfig: null
     },
     createScript: function(url, fn) {
         var script = document.createElement('script');
@@ -32,7 +34,7 @@ Ext.define('POZdroid.ux.Map', {
     constructor: function() {
         var me = this;
         me.callParent(arguments);
-        me.appConfig = POZdroid.config.Config;
+        me.appConfig = me.config.appConfig;
         preInitialize = Ext.bind(me.preInitialize, me);
     },
     initialize: function() {
@@ -46,8 +48,8 @@ Ext.define('POZdroid.ux.Map', {
         this.innerElement.on('touchstart', 'onTouchStart', this);
     },
     preInitialize: function() {
-        var me = this,
-                p = me.appConfig.gmap.defaultcenter;
+        var me = this;
+        p = me.appConfig.gmap.defaultcenter;
         me.setMapCenter(new google.maps.LatLng(p[0], p[1]));
         me.createScript(me.appConfig.urls.markercluster, function() {
             me.doResize();
@@ -55,7 +57,7 @@ Ext.define('POZdroid.ux.Map', {
     },
     onPainted: function() {
         var me = this;
-        me.createScript(me.appConfig.urls.gmap);
+        me.createScript(me.appConfig.urls.gmap + '&callback=preInitialize');
     },
     doResize: function() {
         var gm = (window.google || {}).maps,
@@ -92,7 +94,6 @@ Ext.define('POZdroid.ux.Map', {
             }
 
             mapOptions.mapTypeId = mapOptions.mapTypeId || gm.MapTypeId.ROADMAP;
-            mapOptions.center = mapOptions.center || new gm.LatLng(37.381592, -122.135672); // Palo Alto
 
             if (mapOptions.center && mapOptions.center.latitude && !Ext.isFunction(mapOptions.center.lat)) {
                 mapOptions.center = new gm.LatLng(mapOptions.center.latitude, mapOptions.center.longitude);
@@ -156,7 +157,16 @@ Ext.define('POZdroid.ux.Map', {
         }
     },
     applyGeo: function(config) {
-        return Ext.factory(config, Ext.util.Geolocation, this.getGeo());
+        var me = this,
+                updateLocation = (me.getGeo() !== false);
+        if (config === true) {
+            config = {autoUpdate: false};
+        }
+        var geo = Ext.factory(config, Ext.util.Geolocation, me.getGeo());
+        if (geo && updateLocation === true) {
+            geo.updateLocation();
+        }
+        return geo;
     },
     updateGeo: function(newGeo, oldGeo) {
         var events = {
@@ -221,11 +231,16 @@ Ext.define('POZdroid.ux.Map', {
         }
     },
     // @private
-    onGeoUpdate: function(geo) {
+    onGeoUpdate: function (geo) {
         if (geo) {
-            this.setMapCenter(new google.maps.LatLng(geo.getLatitude(), geo.getLongitude()));
+            this.fireEvent('geoupdated', this, geo);
         }
     },
+//    onGeoUpdate: function(geo) {
+//        if (geo) {
+//            this.setMapCenter(new google.maps.LatLng(geo.getLatitude(), geo.getLongitude()));
+//        }
+//    },
     // @private
     onGeoError: Ext.emptyFn,
     /**

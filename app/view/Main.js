@@ -29,6 +29,7 @@ Ext.define('POZdroid.view.Main', {
                         iconCls: 'maps',
                         ui: 'plain',
                         align: 'right',
+                        action: 'mylocation',
                         hidden: true
                     }]
             }, {
