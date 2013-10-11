@@ -1,5 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="POZdroid.org" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget 
+    id="POZdroid.org" 
+    version="1.0.1" 
+    xmlns="http://www.w3.org/ns/widgets" 
+    xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>POZdroid</name>
     <description>
         App for Samsung App Challenge Poznan
@@ -12,6 +16,7 @@
     <preference name="fullscreen" value="false" />
     <preference name="webviewbounce" value="true" />
     <preference name="splashscreen" value="splashscreen" />
+    
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
     </feature>
@@ -20,5 +25,11 @@
     </feature>
     <feature name="NetworkStatus">
         <param name="android-package" value="org.apache.cordova.NetworkManager" />
+    </feature>
+    <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.GeoBroker" />
+    </feature>
+    <feature name="Notification">
+        <param name="android-package" value="org.apache.cordova.Notification" />
     </feature>
 </widget>

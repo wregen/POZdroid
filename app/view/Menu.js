@@ -17,7 +17,7 @@ Ext.define('POZdroid.view.Menu', {
                 menu: 'pozWelcome'
             },
             {
-                text: 'Map',
+                text: 'Parkomats',
                 iconCls: 'maps',
                 menu: 'pozMap'
             },

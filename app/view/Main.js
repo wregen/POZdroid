@@ -5,7 +5,8 @@ Ext.define('POZdroid.view.Main', {
         'Ext.TitleBar',
         'POZdroid.view.Welcome',
         'POZdroid.view.Settings',
-        'POZdroid.view.Map'
+        'POZdroid.view.Map',
+        'POZdroid.ux.ToggleButton'
     ],
     config: {
         fullscreen: true,
@@ -25,6 +26,7 @@ Ext.define('POZdroid.view.Main', {
                     }, {
                         xtype: 'spacer'
                     }, {
+                        xtype: 'togglebtn',
                         itemId: 'pozMap',
                         iconCls: 'maps',
                         ui: 'plain',

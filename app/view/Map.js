@@ -12,7 +12,9 @@ Ext.define('POZdroid.view.Map', {
             minZoom: 10,
             draggable: true,
             visualRefresh: true,
-            overviewMapControl: true
+            overviewMapControl: true,
+            rotateControl: true,
+            streetViewControl: false
         },
         mapListeners: {
             dragend: function(pozMap) {

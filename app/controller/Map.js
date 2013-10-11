@@ -5,14 +5,18 @@ Ext.define('POZdroid.controller.Map', {
     ],
     config: {
         refs: {
-            map: 'pozMap'
+            map: 'pozMap',
+            trackMyLocationBtn: 'pozMain > toolbar > *[action=mylocation]'
         },
         control: {
             'pozMap': {
-                afterpainted: 'onPainted'
+                afterpainted: 'onPainted',
+                geoupdated: 'processMyLocation',
+                geoerror: 'processLocationError',
+                deactivate: 'deactivateMap'
             },
-            'pozMain > toolbar > button[action=mylocation]': {
-                tap: 'showMyLocation'
+            'pozMain > toolbar > *[action=mylocation]': {
+                tap: 'trackMyLocation'
             }
         }
     },
@@ -23,7 +27,13 @@ Ext.define('POZdroid.controller.Map', {
         me.markerCluster = {};
         me.myLocationMarker = null;
         pozMap.on('bounds_changed', me.showParkomats, me, {buffer: 500});
-        pozMap.on('geoupdated', me.processMyLocation, me);
+    },
+    deactivateMap: function() {
+        var me = this,
+                pozMap = me.getMap(),
+                btn = me.getTrackMyLocationBtn();
+        btn.setPress(false);
+        pozMap.updateUseCurrentLocation(false);
     },
     onPainted: function() {
         var me = this,
@@ -32,17 +42,50 @@ Ext.define('POZdroid.controller.Map', {
         me.markerCluster = new MarkerClusterer(map, me.markers);
         me.showParkomatsIfRendered(pozMap);
     },
-    showMyLocation: function() {
+    trackMyLocation: function() {
         var me = this,
                 pozMap = me.getMap(),
-                map = pozMap.getMap();
-        pozMap.setGeo(true);
+                btn = me.getTrackMyLocationBtn(),
+                pressed = !btn.getIsPressed();
+        pozMap.updateUseCurrentLocation(pressed);
+        me.showOverlay(pressed);
+        if (!pressed && me.myLocationMarker && me.myLocationMarker.setMap) {
+            me.myLocationMarker.setMap(null);
+        }
+    },
+    showOverlay: function(tracking) {
+        var html = tracking ?
+                'Location tracking is ON' : 'Location tracking is OFF';
+        POZdroid.app.toast(html);
+    },
+    isInPozen: function(geo) {
+        var mb = POZdroid.config.Config.gmap.maxbounds,
+                lat = geo.getLatitude(),
+                lon = geo.getLongitude();
+        if (lat < mb.latitude.min || lat > mb.latitude.max) {
+            return false;
+        }
+        if (lon < mb.longitude.min || lon > mb.longitude.max) {
+            return false;
+        }
+        return true;
     },
     processMyLocation: function(pozMap, geo) {
-        var gm = (window.google || {}).maps,
+        var me = this,
+                gm = (window.google || {}).maps,
                 latLng = new gm.LatLng(geo.getLatitude(), geo.getLongitude());
-        pozMap.setMapCenter(latLng);
-        this.placeMyLocationMarker(latLng);
+        if (me.isInPozen(geo)) {
+            pozMap.setMapCenter(latLng);
+            this.placeMyLocationMarker(latLng);
+        } else {
+            POZdroid.app.toast('Your location is not Poznan. <br />There is no way to display parkomats.', '#ff9922', 5000);
+        }
+    },
+    processLocationError: function(pozMap, geo, bTimeout, bPermissionDenied, bLocationUnavailable, message) {
+        if (bTimeout) {
+            message = 'Timeout occurred.';
+        }
+        POZdroid.app.toast('Error: ' + message, '#ff2222');
     },
     showParkomatsIfRendered: function(pozMap) {
         var me = this;
@@ -106,12 +149,6 @@ Ext.define('POZdroid.controller.Map', {
             },
             flat: true
         });
-        infowindow = new gm.InfoWindow({
-            content: u
-        });
-        gm.event.addListener(m, 'click', function() {
-            infowindow.open(map, m);
-        });
         return m;
     },
     placeMyLocationMarker: function(latLng) {
@@ -125,7 +162,6 @@ Ext.define('POZdroid.controller.Map', {
             position: latLng,
             map: map,
             animation: gm.Animation.BOUNCE,
-            title: 'My current location',
             flat: true
         });
     }

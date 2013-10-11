@@ -21,7 +21,17 @@ Ext.define('POZdroid.config.Config', {
     },
     gmap: {
         defaultcenter: [52.40723, 16.93701],
-        maxbounds: [52.259646, 16.662452, 52.554541, 17.211768]
+        maxbounds: {
+            latitude: {
+                min: 52.36280586320742,
+                max: 52.4415651807066
+            },
+            longitude: {
+                min: 16.85032100463866,
+                max: 16.98765010620116
+            }
+        }
+
     },
     constructor: function(config) {
         this.initConfig(config);

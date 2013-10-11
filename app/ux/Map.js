@@ -13,6 +13,7 @@ Ext.define('POZdroid.ux.Map', {
          * @event typechange
          * @event zoomchange
          * @event geoupdated
+         * @event geoerror
          */
 
         baseCls: Ext.baseCSSPrefix + 'map',
@@ -51,13 +52,17 @@ Ext.define('POZdroid.ux.Map', {
         var me = this;
         p = me.appConfig.gmap.defaultcenter;
         me.setMapCenter(new google.maps.LatLng(p[0], p[1]));
-        me.createScript(me.appConfig.urls.markercluster, function() {
-            me.doResize();
-        });
+        if (window.MarkerClusterer === undefined) {
+            me.createScript(me.appConfig.urls.markercluster, function() {
+                me.doResize();
+            });
+        }
     },
     onPainted: function() {
         var me = this;
-        me.createScript(me.appConfig.urls.gmap + '&callback=preInitialize');
+        if (window.google === undefined) {
+            me.createScript(me.appConfig.urls.gmap + '&callback=preInitialize');
+        }
     },
     doResize: function() {
         var gm = (window.google || {}).maps,
@@ -157,16 +162,19 @@ Ext.define('POZdroid.ux.Map', {
         }
     },
     applyGeo: function(config) {
-        var me = this,
-                updateLocation = (me.getGeo() !== false);
-        if (config === true) {
-            config = {autoUpdate: false};
-        }
-        var geo = Ext.factory(config, Ext.util.Geolocation, me.getGeo());
-        if (geo && updateLocation === true) {
-            geo.updateLocation();
-        }
-        return geo;
+// This snipet allow applies geo without autoUpdate
+//        var me = this,
+//                updateLocation = (me.getGeo() !== false);
+//        if (config === true) {
+//            config = {autoUpdate: false};
+//        }
+//        var geo = Ext.factory(config, Ext.util.Geolocation, me.getGeo());
+//        if (geo && updateLocation === true) {
+//            geo.updateLocation();
+//        }
+//        return geo;
+// This snipet allow applies geo WITH autoUpdate        
+        return Ext.factory(config, Ext.util.Geolocation, this.getGeo());
     },
     updateGeo: function(newGeo, oldGeo) {
         var events = {
@@ -231,18 +239,17 @@ Ext.define('POZdroid.ux.Map', {
         }
     },
     // @private
-    onGeoUpdate: function (geo) {
+    onGeoUpdate: function(geo) {
         if (geo) {
             this.fireEvent('geoupdated', this, geo);
         }
     },
-//    onGeoUpdate: function(geo) {
-//        if (geo) {
-//            this.setMapCenter(new google.maps.LatLng(geo.getLatitude(), geo.getLongitude()));
-//        }
-//    },
     // @private
-    onGeoError: Ext.emptyFn,
+    onGeoError: function(geo, bTimeout, bPermissionDenied, bLocationUnavailable, message) {
+        if (geo) {
+            this.fireEvent('geoerror', this, geo, bTimeout, bPermissionDenied, bLocationUnavailable, message);
+        }
+    },
     /**
      * Moves the map center to the designated coordinates hash of the form:
      *

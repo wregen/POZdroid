@@ -40,12 +40,14 @@ Ext.application({
         if (!me.isConnected()) {
             me.showMsgAndClose();
         }
+
 //        if (navigator.splashscreen) {
 //            navigator.splashscreen.show();
 //            setTimeout(function() {
 //                navigator.splashscreen.hide();
 //            }, 2000);
 //        }
+
         // Initialize the main view
         var main = Ext.create('POZdroid.view.Main'),
                 menu = Ext.create('POZdroid.view.Menu');
@@ -55,8 +57,33 @@ Ext.application({
             reveal: false,
             cover: true
         });
+        Ext.Viewport.add(Ext.create('Ext.Panel', {
+            itemId: 'toast',
+            html: '',
+            modal: false,
+            centered: true,
+            padding: 10,
+            hidden: true,
+            style: 'text-align:center',
+            shadow: false
+        }));
+
         me.setMenuWidth(menu);
         Ext.Viewport.on('resize', Ext.bind(me.setMenuWidth, me, [menu], false));
+    },
+    toast: function(html, color, time) {
+        o = Ext.Viewport.getComponent('toast');
+        if (color !== undefined) {
+            o.setStyle('color:' + color);
+        }
+        if (time === undefined) {
+            time = 1500;
+        }
+        o.on('show', function(p) {
+            p.hide();
+        }, o, {delay: time, single: true});
+        o.setHtml(html);
+        o.show();
     },
     showMsgAndClose: function() {
         Ext.device.Notification.alert({
