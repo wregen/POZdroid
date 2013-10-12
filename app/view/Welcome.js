@@ -1,5 +1,5 @@
 Ext.define('POZdroid.view.Welcome', {
-    extend: 'Ext.Panel',
+    extend: 'Ext.Container',
     xtype: 'pozWelcome',
     requires: [
     ],

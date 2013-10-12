@@ -1,5 +1,5 @@
 Ext.define('POZdroid.view.Settings', {
-    extend: 'Ext.Panel',
+    extend: 'Ext.Container',
     requires: [
     ],
     xtype: 'pozSettings',

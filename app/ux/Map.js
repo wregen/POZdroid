@@ -22,7 +22,14 @@ Ext.define('POZdroid.ux.Map', {
         geo: null,
         mapOptions: {},
         mapListeners: null,
-        appConfig: null
+        defaultCenter : null,
+        gmapUrl: null,
+        markerClusterUrl: null
+    },
+    constructor: function() {
+        var me = this;
+        me.callParent(arguments);
+        preInitialize = Ext.bind(me.preInitialize, me);
     },
     createScript: function(url, fn) {
         var script = document.createElement('script');
@@ -31,12 +38,6 @@ Ext.define('POZdroid.ux.Map', {
         script.setAttribute("type", "text/javascript");
         Ext.getHead().appendChild(script);
         script.onload = fn;
-    },
-    constructor: function() {
-        var me = this;
-        me.callParent(arguments);
-        me.appConfig = me.config.appConfig;
-        preInitialize = Ext.bind(me.preInitialize, me);
     },
     initialize: function() {
         this.callParent();
@@ -50,10 +51,10 @@ Ext.define('POZdroid.ux.Map', {
     },
     preInitialize: function() {
         var me = this;
-        p = me.appConfig.gmap.defaultcenter;
+        p = me.getDefaultCenter();
         me.setMapCenter(new google.maps.LatLng(p[0], p[1]));
         if (window.MarkerClusterer === undefined) {
-            me.createScript(me.appConfig.urls.markercluster, function() {
+            me.createScript(me.getMarkerClusterUrl(), function() {
                 me.doResize();
             });
         }
@@ -61,7 +62,7 @@ Ext.define('POZdroid.ux.Map', {
     onPainted: function() {
         var me = this;
         if (window.google === undefined) {
-            me.createScript(me.appConfig.urls.gmap + '&callback=preInitialize');
+            me.createScript(me.getGmapUrl() + '&callback=preInitialize');
         }
     },
     doResize: function() {

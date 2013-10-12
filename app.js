@@ -15,8 +15,8 @@ Ext.application({
     requires: [
         'Ext.Menu',
         'Ext.MessageBox',
-        'POZdroid.view.Menu',
         'POZdroid.config.Config',
+        'POZdroid.view.Menu',
         'Ext.device.Splashscreen',
         'Ext.device.Connection',
         'Ext.device.Notification'
@@ -28,7 +28,6 @@ Ext.application({
 //        'Parkomats'
     ],
     controllers: [
-//        'Parkomats',
         'Menu',
         'Map'
     ],
@@ -41,21 +40,20 @@ Ext.application({
             me.showMsgAndClose();
         }
 
-//        if (navigator.splashscreen) {
-//            navigator.splashscreen.show();
-//            setTimeout(function() {
-//                navigator.splashscreen.hide();
-//            }, 2000);
-//        }
+        Ext.device.Splashscreen.show();
+        setTimeout(function() {
+            Ext.device.Splashscreen.hide();
+        }, 2000);
 
         // Initialize the main view
-        var main = Ext.create('POZdroid.view.Main'),
-                menu = Ext.create('POZdroid.view.Menu');
+        var main = Ext.create('POZdroid.view.Main', {
+            itemId: 'pozMain'
+        }),
+        menu = Ext.create('POZdroid.view.Menu');
         Ext.Viewport.add(main);
         Ext.Viewport.setMenu(menu, {
             side: 'left',
-            reveal: false,
-            cover: true
+            reveal: true
         });
         Ext.Viewport.add(Ext.create('Ext.Panel', {
             itemId: 'toast',
@@ -75,6 +73,8 @@ Ext.application({
         o = Ext.Viewport.getComponent('toast');
         if (color !== undefined) {
             o.setStyle('color:' + color);
+        } else {
+            o.setStyle('color:#000000');
         }
         if (time === undefined) {
             time = 1500;
@@ -84,6 +84,10 @@ Ext.application({
         }, o, {delay: time, single: true});
         o.setHtml(html);
         o.show();
+    },
+    setTitle: function(title) {
+        o = Ext.Viewport.getComponent('pozMain').getComponent('pozToolbar');
+        o.setTitle(title);
     },
     showMsgAndClose: function() {
         Ext.device.Notification.alert({

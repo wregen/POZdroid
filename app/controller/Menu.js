@@ -5,8 +5,7 @@ Ext.define('POZdroid.controller.Menu', {
             main: 'pozMain',
             menu: 'pozMenu',
             welcome: 'pozWelcome',
-            map: 'pozMap',
-            list: 'pozList'
+            map: 'pozMap'
         },
         control: {
             'pozMain > toolbar > button[action=menu]': {
@@ -28,10 +27,21 @@ Ext.define('POZdroid.controller.Menu', {
     switchView: function(btn) {
         var me = this,
                 main = me.getMain(),
-                itemName = btn.getMenu();
+                activateItem = btn.getActivateItem(),
+                activateConfig = btn.getActivateConfig(),
+                activateAction = btn.getActivateAction(),
+                item = main.query(activateItem)[0];
         me.toggleMenu();
-        main.setActiveItem(itemName);
-        me.showAdditionalBtns(itemName);
+        if (activateConfig) {
+            for (var property in activateConfig) {
+                item.set(property, activateConfig[property]);
+            }
+        }
+        if (activateAction) {
+            activateAction.call(item, item, btn);
+        }
+        main.setActiveItem(item);
+//        me.showAdditionalBtns(itemName);
     },
     showAdditionalBtns: function(itemName) {
         var cq = Ext.ComponentQuery,

@@ -10,14 +10,15 @@ Ext.define('POZdroid.config.Config', {
 //        useAjaxRedirect: true,
 //        relativeAjaxRedirect: '../redirect.php'
     },
-    parkomatsPainted: [],
     urls: {
         parkomaty: 'http://www.poznan.pl/featureserver/featureserver.cgi/parkomaty_wgs/all.json?bbox=',
+        biletomaty: 'http://www.poznan.pl/featureserver/featureserver.cgi/biletomaty_wgs/all.json?bbox=',
         gmap: 'http://maps.googleapis.com/maps/api/js?sensor=true',
         markercluster: './resources/js/markerclusterer_compiled.js'
     },
     icons: {
-        parkomat: './resources/images/parkomat-48.png'
+        parkomat: './resources/images/parkomat-24.png',
+        biletomat: './resources/images/biletomat-24.png'
     },
     gmap: {
         defaultcenter: [52.40723, 16.93701],

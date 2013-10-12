@@ -14,6 +14,7 @@ Ext.define('POZdroid.view.Main', {
         scroll: false,
         activeItem: 0,
         items: [{
+                itemId: 'pozToolbar',
                 docked: 'top',
                 xtype: 'toolbar',
                 title: 'POZdroid',
@@ -35,13 +36,10 @@ Ext.define('POZdroid.view.Main', {
                         hidden: true
                     }]
             }, {
-                itemId: 'pozWelcome',
                 xtype: 'pozWelcome'
             }, {
-                itemId: 'pozMap',
                 xtype: 'pozMap'
             }, {
-                itemId: 'pozSettings',
                 xtype: 'pozSettings'
             }]
     }
