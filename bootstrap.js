@@ -742,20 +742,19 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.viewport.WindowsPhone": [
     "Ext.viewport.WP"
   ],
-  "POZdroid.config.Config": [],
+  "POZdroid.Config": [],
   "POZdroid.controller.Map": [],
   "POZdroid.controller.Menu": [],
-  "POZdroid.controller.Parkomats": [],
-  "POZdroid.model.Parkomat": [],
-  "POZdroid.store.Parkomats": [],
+  "POZdroid.model.Address": [],
+  "POZdroid.store.Addresses": [],
   "POZdroid.ux.Map": [],
   "POZdroid.ux.MenuButton": [],
   "POZdroid.ux.ToggleButton": [],
+  "POZdroid.view.About": [],
   "POZdroid.view.Main": [],
   "POZdroid.view.Map": [],
   "POZdroid.view.Menu": [],
-  "POZdroid.view.Settings": [],
-  "POZdroid.view.Welcome": []
+  "POZdroid.view.News": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1692,12 +1691,11 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
-  "POZdroid.config.Config": [],
+  "POZdroid.Config": [],
   "POZdroid.controller.Map": [],
   "POZdroid.controller.Menu": [],
-  "POZdroid.controller.Parkomats": [],
-  "POZdroid.model.Parkomat": [],
-  "POZdroid.store.Parkomats": [],
+  "POZdroid.model.Address": [],
+  "POZdroid.store.Addresses": [],
   "POZdroid.ux.Map": [
     "widget.map"
   ],
@@ -1706,6 +1704,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "POZdroid.ux.ToggleButton": [
     "widget.togglebtn"
+  ],
+  "POZdroid.view.About": [
+    "widget.pozAbout"
   ],
   "POZdroid.view.Main": [
     "widget.pozMain"
@@ -1716,10 +1717,7 @@ Ext.ClassManager.addNameAliasMappings({
   "POZdroid.view.Menu": [
     "widget.pozMenu"
   ],
-  "POZdroid.view.Settings": [
-    "widget.pozSettings"
-  ],
-  "POZdroid.view.Welcome": [
-    "widget.pozWelcome"
+  "POZdroid.view.News": [
+    "widget.pozNews"
   ]
 });

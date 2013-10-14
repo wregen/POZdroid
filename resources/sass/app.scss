@@ -39,3 +39,18 @@ $base-color: #231f20;
 body, .x-fullscreen {
     background: #000 !important;
 }
+
+.photo-desc {
+    position:absolute;
+    top:0px;
+    background:#fff;
+    font-size:0.5em;
+    opacity:0.8;
+    text-align:left;
+    padding:5px;
+    width:285px;
+}
+.photo-desc h1{
+    font-size:1.4em;
+    font-weight:bold;
+}

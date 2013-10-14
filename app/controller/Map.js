@@ -6,24 +6,26 @@ Ext.define('POZdroid.controller.Map', {
     config: {
         refs: {
             map: 'pozMap',
-            trackMyLocationBtn: 'pozMain > toolbar > *[action=mylocation]'
+            myLocationBtn: 'pozMain #pozToolbar *[action=mylocation]'
         },
         control: {
             'pozMap': {
+                mapcleared: 'unpressMyLocation'
             },
-            'pozMain > toolbar > *[action=mylocation]': {
-                tap: 'trackMyLocation'
+            'pozMain #pozToolbar *[action=mylocation]': {
+                tap: 'setTrackMyLocation'
             }
         }
     },
-    launch: function() {
-        var me = this;
+    unpressMyLocation: function() {
+        var me = this,
+                myLocationBtn = me.getMyLocationBtn();
+        myLocationBtn.setPress(false);
+    },
+    setTrackMyLocation: function(btn) {
+        var me = this,
+                pozMap = me.getMap(),
+                val = !btn.getIsPressed();
+        pozMap.setTrackMyLocation(val);
     }
-//    deactivateMap: function() {
-//        var me = this,
-//                pozMap = me.getMap(),
-//                btn = me.getTrackMyLocationBtn();
-//        btn.setPress(false);
-//        pozMap.updateUseCurrentLocation(false);
-//    }
 });

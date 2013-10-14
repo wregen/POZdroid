@@ -2,10 +2,7 @@ Ext.define('POZdroid.controller.Menu', {
     extend: 'Ext.app.Controller',
     config: {
         refs: {
-            main: 'pozMain',
-            menu: 'pozMenu',
-            welcome: 'pozWelcome',
-            map: 'pozMap'
+            main: 'pozMain'
         },
         control: {
             'pozMain > toolbar > button[action=menu]': {
@@ -15,11 +12,6 @@ Ext.define('POZdroid.controller.Menu', {
                 tap: 'switchView'
             }
         }
-    },
-    launch: function() {
-        var me = this,
-                main = me.getMain();
-        me.showAdditionalBtns(main.getActiveItem().getItemId());
     },
     toggleMenu: function() {
         Ext.Viewport.toggleMenu("left");
@@ -32,6 +24,8 @@ Ext.define('POZdroid.controller.Menu', {
                 activateAction = btn.getActivateAction(),
                 item = main.query(activateItem)[0];
         me.toggleMenu();
+        me.hideExtraBtns();
+        me.showExtraBtns(activateItem);
         if (activateConfig) {
             for (var property in activateConfig) {
                 item.set(property, activateConfig[property]);
@@ -40,22 +34,23 @@ Ext.define('POZdroid.controller.Menu', {
         if (activateAction) {
             activateAction.call(item, item, btn);
         }
+        POZdroid.app.setTitle(btn.getText());
         main.setActiveItem(item);
-//        me.showAdditionalBtns(itemName);
     },
-    showAdditionalBtns: function(itemName) {
-        var cq = Ext.ComponentQuery,
-                btns = cq.query('pozMain toolbar button'),
+    hideExtraBtns: function() {
+        var btns = Ext.ComponentQuery.query('pozMain #pozToolbar button'),
                 l = btns.length,
                 i;
         for (i = 0; i < l; i++) {
-            if (btns[i].getItemId() !== 'menu' && btns[i].getItemId() !== itemName) {
+            if (btns[i].getItemId() !== 'menu') {
                 btns[i].hide();
-            } else {
-                btns[i].show();
             }
         }
-
+    },
+    showExtraBtns: function(activateItem) {
+        var items = Ext.ComponentQuery.query('pozMain #pozToolbar #' + activateItem);
+        if (items[0]) {
+            items[0].show();
+        }
     }
-
 });

@@ -3,8 +3,8 @@ Ext.define('POZdroid.view.Main', {
     xtype: 'pozMain',
     requires: [
         'Ext.TitleBar',
-        'POZdroid.view.Welcome',
-        'POZdroid.view.Settings',
+        'POZdroid.view.Guides',
+        'POZdroid.view.About',
         'POZdroid.view.Map',
         'POZdroid.ux.ToggleButton'
     ],
@@ -17,7 +17,7 @@ Ext.define('POZdroid.view.Main', {
                 itemId: 'pozToolbar',
                 docked: 'top',
                 xtype: 'toolbar',
-                title: 'POZdroid',
+                title: POZdroid.Config.str.pl.news,
                 items: [{
                         itemId: 'menu',
                         iconCls: 'list',
@@ -36,11 +36,11 @@ Ext.define('POZdroid.view.Main', {
                         hidden: true
                     }]
             }, {
-                xtype: 'pozWelcome'
+                xtype: 'pozGuides'
             }, {
                 xtype: 'pozMap'
             }, {
-                xtype: 'pozSettings'
+                xtype: 'pozAbout'
             }]
     }
 });

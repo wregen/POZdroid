@@ -4,10 +4,13 @@ Ext.define('POZdroid.view.Map', {
     ],
     xtype: 'pozMap',
     config: {
-        defaultCenter: POZdroid.config.Config.gmap.defaultcenter,
-        gmapUrl: POZdroid.config.Config.urls.gmap,
-        markerClusterUrl: POZdroid.config.Config.urls.markercluster,
-        maxBounds: POZdroid.config.Config.gmap.maxbounds,
+        /**
+         * @event mapcleared
+         */
+        defaultCenter: POZdroid.Config.gmap.defaultcenter,
+        gmapUrl: POZdroid.Config.urls.gmap,
+        markerClusterUrl: POZdroid.Config.urls.markercluster,
+        maxBounds: POZdroid.Config.gmap.maxbounds,
         markersUrl: null,
         markerIconUrl: null,
         useCurrentLocation: false,
@@ -19,7 +22,10 @@ Ext.define('POZdroid.view.Map', {
             visualRefresh: true,
             overviewMapControl: true,
             rotateControl: true,
-            streetViewControl: false
+            rotateControlOptions: {
+                position: 1
+            },
+            streetViewControl: true
         },
         mapListeners: {
             bounds_changed: function(mapObj) {
@@ -63,6 +69,7 @@ Ext.define('POZdroid.view.Map', {
         me.setMarkerIds([]);
         me.setMarkers([]);
         me.getMarkerCluster().clearMarkers();
+        me.fireEvent('mapcleared', this);
     },
     onAfterPainted: function() {
         var me = this;
@@ -112,17 +119,27 @@ Ext.define('POZdroid.view.Map', {
                 map = me.getMap(),
                 gm = (window.google || {}).maps,
                 p = o.geometry.coordinates[0],
-                u = o.properties.ulica,
+                desc,
                 m = new gm.Marker({
             position: new gm.LatLng(p[1], p[0]),
             map: map,
-            clickable: false,
+            clickable: true,
             animation: gm.Animation.DROP,
-            title: u,
             icon: {
                 url: me.getMarkerIconUrl()
             },
             flat: true
+        });
+        if (o.properties.ulica !== undefined) {
+            desc = {h1:o.properties.ulica, p: ''};
+        } else {
+            desc = {h1:o.properties.opis, p: o.properties.opis_long};
+        }
+        gm.event.addListener(m, 'click',function (m){
+            var mb = m.latLng.mb,
+                lb = m.latLng.lb,
+                params = lb + '%20' + mb;
+                POZdroid.app.streetView(params, desc);
         });
         return m;
     },
