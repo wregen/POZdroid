@@ -14,7 +14,10 @@ Ext.define('POZdroid.view.Menu', {
         items: [{
                 text: POZdroid.Config.str.pl.news,
                 iconCls: 'home',
-                activateItem: 'pozNews'
+                activateItem: 'pozGuides',
+                activateAction: function (item, btn) {
+                    item.reset();
+                }
             }, {
                 text: POZdroid.Config.str.pl.parkomats,
                 iconCls: 'maps',

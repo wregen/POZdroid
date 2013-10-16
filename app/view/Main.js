@@ -22,8 +22,7 @@ Ext.define('POZdroid.view.Main', {
                         itemId: 'menu',
                         iconCls: 'list',
                         ui: 'plain',
-                        align: 'left',
-                        action: 'menu'
+                        align: 'left'
                     }, {
                         xtype: 'spacer'
                     }, {
@@ -32,7 +31,13 @@ Ext.define('POZdroid.view.Main', {
                         iconCls: 'maps',
                         ui: 'plain',
                         align: 'right',
-                        action: 'mylocation',
+                        hidden: true
+                    }, {
+                        xtype: 'button',
+                        itemId: 'pozGuidesBack',
+                        text: 'Back',
+                        ui: 'back',
+                        align: 'right',
                         hidden: true
                     }]
             }, {

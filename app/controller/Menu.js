@@ -5,8 +5,11 @@ Ext.define('POZdroid.controller.Menu', {
             main: 'pozMain'
         },
         control: {
-            'pozMain > toolbar > button[action=menu]': {
+            'pozMain > toolbar > button[itemId=menu]': {
                 tap: 'toggleMenu'
+            },
+            'pozMain > container': {
+                activate: 'onPozMainItemActivate'
             },
             'pozMenu button': {
                 tap: 'switchView'
@@ -16,6 +19,12 @@ Ext.define('POZdroid.controller.Menu', {
     toggleMenu: function() {
         Ext.Viewport.toggleMenu("left");
     },
+    onPozMainItemActivate: function(item) {
+        var me = this,
+                xtypes = item.getXTypes().split('/'),
+                xtype = xtypes[xtypes.length - 1];
+        me.showExtraBtns(xtype);
+    },
     switchView: function(btn) {
         var me = this,
                 main = me.getMain(),
@@ -24,8 +33,10 @@ Ext.define('POZdroid.controller.Menu', {
                 activateAction = btn.getActivateAction(),
                 item = main.query(activateItem)[0];
         me.toggleMenu();
+
         me.hideExtraBtns();
         me.showExtraBtns(activateItem);
+
         if (activateConfig) {
             for (var property in activateConfig) {
                 item.set(property, activateConfig[property]);

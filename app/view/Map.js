@@ -53,7 +53,7 @@ Ext.define('POZdroid.view.Map', {
     constructor: function() {
         var me = this;
         me.callParent(arguments);
-        me.on('bounds_changed', me.showCustomMarkers, me, {buffer: 500});
+        me.on('bounds_changed', me.showCustomMarkers, me, {buffer: 800});
     },
     clearMap: function() {
         var me = this,

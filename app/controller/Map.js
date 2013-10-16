@@ -6,13 +6,13 @@ Ext.define('POZdroid.controller.Map', {
     config: {
         refs: {
             map: 'pozMap',
-            myLocationBtn: 'pozMain #pozToolbar *[action=mylocation]'
+            myLocationBtn: 'pozMain #pozToolbar *[itemId=pozMap]'
         },
         control: {
             'pozMap': {
                 mapcleared: 'unpressMyLocation'
             },
-            'pozMain #pozToolbar *[action=mylocation]': {
+            'pozMain #pozToolbar *[itemId=pozMap]': {
                 tap: 'setTrackMyLocation'
             }
         }

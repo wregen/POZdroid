@@ -23,9 +23,9 @@ Ext.define('POZdroid.Config', {
         markercluster: './resources/js/markerclusterer_compiled.js',
         streetImg: 'http://maps.googleapis.com/maps/api/streetview?key=AIzaSyDITpyopvp-GYLYqHybXfrJqYJFU9wkefc&size=285x230&fov=90&pitch=0&sensor=false&location=',
         guides: 'http://www.poznan.pl/mim/public/przewodnik/przewodnik_m.html?co=guides',
-        guidesTmp: 'http://www.poznan.pl/mim/public/przewodnik/przewodnik_m.html?co=guide&pr_id=5&lang=pl',
-        guidesTmp2: 'http://www.poznan.pl/mim/public/przewodnik/przewodnik_m.html?co=cat&pr_id=5&lang=pl',
-        guidesTmp3: 'http://www.poznan.pl/mim/public/przewodnik/przewodnik_m.html?co=media&object_id=44126&lang=pl'
+        guidesPois: 'http://www.poznan.pl/mim/public/przewodnik/przewodnik_m.html?co=cat&lang=pl&pr_id=',
+        guidesDetails: 'http://www.poznan.pl/mim/public/przewodnik/przewodnik_m.html?co=guide&lang=pl&pr_id=',
+        guidesMedia: 'http://www.poznan.pl/mim/public/przewodnik/przewodnik_m.html?co=media&object_id=44126&lang=pl'
     },
     icons: {
         parkomat: './resources/images/parkomat-24.png',
