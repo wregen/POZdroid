@@ -5,7 +5,7 @@ Ext.define('POZdroid.controller.Menu', {
             main: 'pozMain'
         },
         control: {
-            'pozMain > toolbar > button[itemId=menu]': {
+            'pozMain button[itemId=menu]': {
                 tap: 'toggleMenu'
             },
             'pozMain > container': {
@@ -17,7 +17,7 @@ Ext.define('POZdroid.controller.Menu', {
         }
     },
     toggleMenu: function() {
-        Ext.Viewport.toggleMenu("left");
+        Ext.Viewport.toggleMenu("right");
     },
     onPozMainItemActivate: function(item) {
         var me = this,

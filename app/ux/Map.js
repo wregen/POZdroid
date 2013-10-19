@@ -53,7 +53,7 @@ Ext.define('POZdroid.ux.Map', {
         var me = this;
         p = me.getDefaultCenter();
         me.setMapCenter(new google.maps.LatLng(p[0], p[1]));
-        if (window.MarkerClusterer === undefined) {
+        if (window.MarkerClusterer === undefined && me.getMarkerClusterUrl() !== null) {
             me.createScript(me.getMarkerClusterUrl(), function() {
                 me.doResize();
             });

@@ -22,9 +22,11 @@ Ext.define('POZdroid.Config', {
         gmap: 'http://maps.googleapis.com/maps/api/js?sensor=true',
         markercluster: './resources/js/markerclusterer_compiled.js',
         streetImg: 'http://maps.googleapis.com/maps/api/streetview?key=AIzaSyDITpyopvp-GYLYqHybXfrJqYJFU9wkefc&size=285x230&fov=90&pitch=0&sensor=false&location=',
+        guidesPrefix: 'http://www.poznan.pl/mim/public/',
         guides: 'http://www.poznan.pl/mim/public/przewodnik/przewodnik_m.html?co=guides',
-        guidesPois: 'http://www.poznan.pl/mim/public/przewodnik/przewodnik_m.html?co=cat&lang=pl&pr_id=',
         guidesDetails: 'http://www.poznan.pl/mim/public/przewodnik/przewodnik_m.html?co=guide&lang=pl&pr_id=',
+        guidesPois: 'http://www.poznan.pl/mim/public/przewodnik/przewodnik_m.html?co=cat&lang=pl&pr_id=',
+        guidesGalery: 'http://www.poznan.pl/mim/public/przewodnik/przewodnik_m.html?co=galeria&lang=pl&object_id=',
         guidesMedia: 'http://www.poznan.pl/mim/public/przewodnik/przewodnik_m.html?co=media&object_id=44126&lang=pl'
     },
     icons: {
@@ -49,7 +51,7 @@ Ext.define('POZdroid.Config', {
         pl: {
             parkomats: 'Mapa Parkomatów',
             ticketMachines: 'Mapa Biletomatów',
-            news: 'Przewodnik',
+            guides: 'Przewodnik',
             about: 'O aplikacji'
         }
     },

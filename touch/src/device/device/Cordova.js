@@ -118,15 +118,16 @@ Ext.define('Ext.device.device.Cordova', {
         var me = this,
             device = window.device;
 
-        me.name = device.name || device.model;
-        me.cordova = device.cordova;
-        me.platform =  device.platform || Ext.os.name;
-        me.uuid =  device.uuid;
-        me.version = device.version;
-        me.model = device.model;
+        me.name = '';//device.name || device.model;
+        me.cordova = '';//device.cordova;
+        me.platform =  '';//device.platform || Ext.os.name;
+        me.uuid =  '';//device.uuid;
+        me.version = '';//device.version;
+        me.model = '';//device.model;
     },
 
     doAddListener: function(name) {
+        var me = this;
         if (!this.addedListeners) {
             this.addedListeners = [];
         }

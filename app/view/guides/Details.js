@@ -6,11 +6,32 @@
     ],
     config: {
         styleHtmlContent: true,
-        tpl: '<h3>{title}</h3>{desc}',
+        cls: 'guides-details',
+        tpl: [
+            '<img src="', POZdroid.Config.urls.guidesPrefix, '{imgUrl}" width="100%" />',
+            '{desc}'
+        ],
         scrollable: 'vertical',
         prId: null,
+        title: POZdroid.Config.str.pl.guides,
         listeners: {
             painted: 'load'
+        },
+        items: {
+            docked: 'bottom',
+            xtype: 'toolbar',
+            ui: 'plain',
+            items: [{
+                    xtype: 'spacer'
+                }, {
+                    itemId: 'activateGuidesPois',
+                    text: 'Obiekty w okolicy'
+                }, {
+                    itemId: 'activateGuidesMap',
+                    text: 'Mapa okolicy'
+                }, {
+                    xtype: 'spacer'
+                }]
         }
     },
     load: function() {
@@ -28,15 +49,30 @@
         });
         Ext.Ajax.request({
             url: url,
-            success: function(r) {
-                var text = r.responseText,
-                        res = POZdroid.app.parseGuides(text, true);
-                rec = Ext.create('POZdroid.model.Detail', res);
-                me.setRecord(rec);
-                me.setMasked(false);
-            }
+            scope: me,
+            success: me.prodessSuccess,
+            failure: me.processError
         });
-
+    },
+    prodessSuccess: function(r) {
+        var me = this,
+                text = r.responseText,
+                res;
+        if (Ext.isEmpty(text)) {
+            me.processError({});
+        } else {
+            res = POZdroid.app.parseGuides(text, true);
+            rec = Ext.create('POZdroid.model.Detail', res);
+            me.setRecord(rec);
+            me.setMasked(false);
+            POZdroid.app.setTitle(rec.get('title'));
+        }
+    },
+    processError: function() {
+        var me = this;
+        me.setMasked(false);
+        POZdroid.app.toast('An error has occured. Please try again.', '#ff2200');
+        me.getParent().onBackButtonTap();
     }
 
 });

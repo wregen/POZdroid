@@ -1,12 +1,17 @@
 Ext.define('POZdroid.model.Poi', {
     extend: 'Ext.data.Model',
     config: {
-        idProperty: 'subclass',
+        idProperty: 'poi',
         fields: [
-            {name: 'subclass', type: 'int'},
+            {name: 'poi', type: 'int'},
+            {name: 'address', type: 'auto'},
+            {name: 'desc', type: 'auto'},
+            {name: 'email', type: 'auto'},
+            {name: 'group', type: 'auto'},
+            {name: 'lat', type: 'auto'},
+            {name: 'lon', type: 'auto'},
             {name: 'name', type: 'auto'},
-            {name: 'icon_name', type: 'auto'},
-            {name: 'icon_url', type: 'auto'}
+            {name: 'gallery', type: 'auto'}
         ]
     }
 });

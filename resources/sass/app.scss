@@ -1,5 +1,6 @@
 
-$base-color: #231f20;
+//$base-color: #231f20;
+$base-color: #434f60;
 
 //$dark-theme: false !default;
 //$background-color: #f9f9f9;
@@ -53,4 +54,8 @@ body, .x-fullscreen {
 .photo-desc h1{
     font-size:1.4em;
     font-weight:bold;
+}
+
+.guides-details p {
+    text-align: justify;
 }

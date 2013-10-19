@@ -7,6 +7,8 @@
         'POZdroid.view.guides.Main',
         'POZdroid.view.guides.Details',
         'POZdroid.view.guides.Pois',
+        'POZdroid.view.guides.Poi',
+        'POZdroid.view.guides.Map',
         'Ext.dataview.List',
         'Ext.LoadMask'
     ],

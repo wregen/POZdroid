@@ -1,9 +1,12 @@
 .x-menu {
 	background-color: #efefef;
-	@include st-box-shadow(inset -3px 0px 20px -10px black);
+	/*@include st-box-shadow(inset -3px 0px 20px -10px black);*/
+        @include st-box-shadow(inset 3px 1px 20px -10px #000);
 	background-color: #efefef;
-	-webkit-box-shadow: inset -3px 0px 20px -10px black;
-	box-shadow: inset -3px 0px 20px -10px black;
+	/*-webkit-box-shadow: inset -3px 0px 20px -10px black;*/
+        -webkit-box-shadow: inset 3px 1px 20px -10px #000;
+        box-shadow: inset 3px 1px 20px -10px #000;
+	/*box-shadow: inset -3px 0px 20px -10px black;*/
 	padding:0px;
         @include background-gradient('#fafafa', '#dfdfdf');
 	

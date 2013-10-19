@@ -743,18 +743,29 @@ Ext.ClassManager.addNameAlternateMappings({
     "Ext.viewport.WP"
   ],
   "POZdroid.Config": [],
+  "POZdroid.controller.Device": [],
+  "POZdroid.controller.Guides": [],
   "POZdroid.controller.Map": [],
   "POZdroid.controller.Menu": [],
-  "POZdroid.model.Address": [],
-  "POZdroid.store.Addresses": [],
+  "POZdroid.model.Detail": [],
+  "POZdroid.model.Guide": [],
+  "POZdroid.model.Poi": [],
+  "POZdroid.store.Guides": [],
+  "POZdroid.store.Pois": [],
   "POZdroid.ux.Map": [],
   "POZdroid.ux.MenuButton": [],
   "POZdroid.ux.ToggleButton": [],
   "POZdroid.view.About": [],
+  "POZdroid.view.Guides": [],
   "POZdroid.view.Main": [],
   "POZdroid.view.Map": [],
   "POZdroid.view.Menu": [],
-  "POZdroid.view.News": []
+  "POZdroid.view.Streetview": [],
+  "POZdroid.view.Toast": [],
+  "POZdroid.view.guides.Details": [],
+  "POZdroid.view.guides.Main": [],
+  "POZdroid.view.guides.Poi": [],
+  "POZdroid.view.guides.Pois": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1692,10 +1703,15 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
   "POZdroid.Config": [],
+  "POZdroid.controller.Device": [],
+  "POZdroid.controller.Guides": [],
   "POZdroid.controller.Map": [],
   "POZdroid.controller.Menu": [],
-  "POZdroid.model.Address": [],
-  "POZdroid.store.Addresses": [],
+  "POZdroid.model.Detail": [],
+  "POZdroid.model.Guide": [],
+  "POZdroid.model.Poi": [],
+  "POZdroid.store.Guides": [],
+  "POZdroid.store.Pois": [],
   "POZdroid.ux.Map": [
     "widget.map"
   ],
@@ -1708,6 +1724,9 @@ Ext.ClassManager.addNameAliasMappings({
   "POZdroid.view.About": [
     "widget.pozAbout"
   ],
+  "POZdroid.view.Guides": [
+    "widget.pozGuides"
+  ],
   "POZdroid.view.Main": [
     "widget.pozMain"
   ],
@@ -1717,7 +1736,22 @@ Ext.ClassManager.addNameAliasMappings({
   "POZdroid.view.Menu": [
     "widget.pozMenu"
   ],
-  "POZdroid.view.News": [
-    "widget.pozNews"
+  "POZdroid.view.Streetview": [
+    "widget.pozStreetview"
+  ],
+  "POZdroid.view.Toast": [
+    "widget.pozToast"
+  ],
+  "POZdroid.view.guides.Details": [
+    "widget.pozGuidesDetails"
+  ],
+  "POZdroid.view.guides.Main": [
+    "widget.pozGuidesMain"
+  ],
+  "POZdroid.view.guides.Poi": [
+    "widget.pozGuidesPoi"
+  ],
+  "POZdroid.view.guides.Pois": [
+    "widget.pozGuidesPois"
   ]
 });

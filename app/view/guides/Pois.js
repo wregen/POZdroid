@@ -14,10 +14,6 @@
             xtype: 'loadmask',
             message: 'Ładowanie danych'
         },
-        listeners: {
-            'activate': function(me) {
-                me.getStore().loadPois();
-            }
-        }
+        grouped: true
     }
 });

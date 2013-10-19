@@ -16,29 +16,30 @@ Ext.define('POZdroid.view.Main', {
         items: [{
                 itemId: 'pozToolbar',
                 docked: 'top',
-                xtype: 'toolbar',
-                title: POZdroid.Config.str.pl.news,
+//                ui: 'plain',
+                xtype: 'titlebar',
+                title: POZdroid.Config.str.pl.guides,
                 items: [{
-                        itemId: 'menu',
-                        iconCls: 'list',
-                        ui: 'plain',
-                        align: 'left'
-                    }, {
-                        xtype: 'spacer'
-                    }, {
                         xtype: 'togglebtn',
                         itemId: 'pozMap',
                         iconCls: 'maps',
                         ui: 'plain',
-                        align: 'right',
+                        align: 'left',
                         hidden: true
                     }, {
                         xtype: 'button',
                         itemId: 'pozGuidesBack',
                         text: 'Back',
                         ui: 'back',
-                        align: 'right',
+                        align: 'left',
                         hidden: true
+                    }, {
+                        xtype: 'spacer'
+                    }, {
+                        itemId: 'menu',
+                        iconCls: 'list',
+                        ui: 'plain',
+                        align: 'right'
                     }]
             }, {
                 xtype: 'pozGuides'

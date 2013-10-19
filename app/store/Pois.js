@@ -8,12 +8,18 @@ Ext.define('POZdroid.store.Pois', {
             type: 'memory'
         },
         model: 'POZdroid.model.Poi',
-        url: POZdroid.Config.urls.guidesPois
+        url: POZdroid.Config.urls.guidesPois,
+        grouper: {
+            groupFn: function(record) {
+                return record.get('group');
+            }
+        },
+        sorters: 'name'
     },
-    loadPois: function() {
+    loadPois: function(prId) {
         var me = this;
-        POZdroid.app.doRequest(me.getUrl(), function(o) {
-            parsed = POZdroid.app.postParseGuides(me.parseGuides(o));
+        POZdroid.app.doRequest(me.getUrl() + prId, function(o) {
+            parsed = POZdroid.app.postParseGuides(POZdroid.app.parseGuides(o));
             me.setData(parsed);
         });
     }

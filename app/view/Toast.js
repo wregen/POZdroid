@@ -2,7 +2,7 @@ Ext.define('POZdroid.view.Toast', {
     extend: 'Ext.Panel',
     requires: [
     ],
-    xtype: 'pozStreetview',
+    xtype: 'pozToast',
     config: {
             html: '',
             modal: false,

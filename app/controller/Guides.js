@@ -9,11 +9,13 @@ Ext.define('POZdroid.controller.Guides', {
             'Pois'
         ],
         refs: {
-            backBtn: 'pozMain > toolbar > button[itemId=pozGuidesBack]',
+            backBtn: 'pozMain #pozToolbar button[itemId=pozGuidesBack]',
             guides: 'pozGuides',
             guidesMain: 'pozGuidesMain',
             guidesDetails: 'pozGuidesDetails',
-            guidesPois: 'pozGuidesPois'
+            guidesPois: 'pozGuidesPois',
+            activatePoisBtn: 'pozGuidesDetails button[itemId=activateGuidesPois]',
+            activateMapBtn: 'pozGuidesDetails button[itemId=activateGuidesMap]'
         },
         control: {
             'pozGuides > container': {
@@ -23,8 +25,17 @@ Ext.define('POZdroid.controller.Guides', {
                 activate: 'pozGuidesLoad',
                 itemtap: 'pozGuidesItemTap'
             },
-            'pozMain > toolbar > button[itemId=pozGuidesBack]': {
+            'pozMain #pozToolbar button[itemId=pozGuidesBack]': {
                 tap: 'onBackBtnTap'
+            },
+            'pozGuidesDetails button[itemId=activateGuidesPois]': {
+                tap: 'activatePois'
+            },
+            'pozGuidesDetails button[itemId=activateGuidesMap]': {
+                tap: 'activateMap'
+            },
+            'pozGuidesPois': {
+                itemtap: 'pozGuidesPoisItemTap'
             }
         }
     },
@@ -36,6 +47,7 @@ Ext.define('POZdroid.controller.Guides', {
                 backBtn = me.getBackBtn();
         if (item.getXTypes().indexOf('pozGuidesMain') !== -1) {
             backBtn.hide();
+            POZdroid.app.setTitle(POZdroid.Config.str.pl.guides);
         } else {
             backBtn.show();
         }
@@ -52,6 +64,34 @@ Ext.define('POZdroid.controller.Guides', {
         guides.push({
             xtype: 'pozGuidesDetails',
             prId: prId
+        });
+    },
+    activatePois: function(btn) {
+        var me = this,
+                guides = me.getGuides(),
+                guidesDetails = me.getGuidesDetails(),
+                prId = guidesDetails.getPrId(),
+                store = Ext.getStore('Pois');
+        
+        store .removeAll();
+        store.loadPois(prId);
+        guides.push({
+            xtype: 'pozGuidesPois'
+        });
+    },
+    activateMap: function () {
+        var me = this,
+                guides = me.getGuides();
+        guides.push({
+            xtype: 'pozGuidesMap'
+        });
+    },
+    pozGuidesPoisItemTap: function(list, index, target, record, e, eOpts) {
+        var me = this,
+                guides = me.getGuides();
+        guides.push({
+            xtype: 'pozGuidesPoi',
+            record: record
         });
     }
 });

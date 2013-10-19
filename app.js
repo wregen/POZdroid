@@ -33,42 +33,45 @@ Ext.application({
     controllers: [
         'Menu',
         'Map',
-        'Guides'
+        'Guides',
+        'Device'
     ],
     isIconPrecomposed: true,
     launch: function() {
         var me = this;
+        if (!me.isConnected()) {
+            me.showConnectionError();
+            return false;
+        }
+
         me.heading = 0;
         me.imgUrl = null;
         me.ingDesc = null;
         // Require to allow CORS requests
         Ext.Ajax.setUseDefaultXhrHeader(false);
-        if (!me.isConnected()) {
-            me.showMsgAndClose();
-        }
 
         Ext.device.Splashscreen.show();
         setTimeout(function() {
             Ext.device.Splashscreen.hide();
         }, 2000);
 
-        // Initialize the main view
         var main = Ext.create('POZdroid.view.Main', {
             itemId: 'pozMain'
-        });
-        Ext.Viewport.add(main);
+        }),
+        toast = Ext.create('POZdroid.view.Toast', {
+            itemId: 'toast'
+        }),
+        streetView = Ext.create('POZdroid.view.Streetview', {
+            itemId: 'streetView'
+        }),
         menu = Ext.create('POZdroid.view.Menu');
+
+
+        Ext.Viewport.add([main, toast, streetView]);
         Ext.Viewport.setMenu(menu, {
-            side: 'left',
+            side: 'right',
             reveal: true
         });
-        Ext.Viewport.add(Ext.create('POZdroid.view.Toast', {
-            itemId: 'toast'
-        }));
-
-        Ext.Viewport.add(Ext.create('POZdroid.view.Streetview', {
-            itemId: 'streetView'
-        }));
 
         me.setMenuWidth(menu);
         Ext.Viewport.on('resize', Ext.bind(me.setMenuWidth, me, [menu], false));
@@ -113,19 +116,45 @@ Ext.application({
         o.show();
     },
     setTitle: function(title) {
-        o = Ext.Viewport.getComponent('pozMain').getComponent('pozToolbar');
-        o.setTitle(title);
+        var main = Ext.Viewport.getComponent('pozMain'),
+                toolbar;
+        if (main !== undefined) {
+            toolbar = main.getComponent('pozToolbar');
+            toolbar.setTitle(title);
+        }
     },
-    showMsgAndClose: function() {
-        Ext.device.Notification.alert({
-            message: 'The app requires active internet connetion. Click OK, start network and run the app again. Thank you!',
+    exitApp: function() {
+        navigator.app.exitApp();
+    },
+    showConnectionError: function() {
+        var me = this;
+        navigator.notification.vibrate(500);
+        Ext.Msg.show({
             title: 'Internet Connection Required',
-            callback: function() {
-                navigator.app.exitApp();
+            message: 'The app requires active internet connetion. Click OK, start network and run the app again. Thank you!',
+            fn: function() {
+                me.exitApp();
             },
-            buttonName: 'OK'
+            buttons: [
+                {text: 'OK', itemId: 'ok', ui: 'confirm'}
+            ]
         });
-        Ext.device.Notification.vibrate();
+    },
+    showCloseWarning: function() {
+        var me = this;
+        Ext.Msg.show({
+            title: 'Question',
+            message: 'Do you want to close the application?',
+            fn: function(btnId) {
+                if (btnId === 'ok') {
+                    me.exitApp();
+                }
+            },
+            buttons: [
+                {text: 'Cancel', itemId: 'cancel', ui: 'decline'},
+                {text: 'OK', itemId: 'ok', ui: 'confirm'}
+            ]
+        });
     },
     setMenuWidth: function(menu) {
         var o = Ext.Viewport.getOrientation();
@@ -168,14 +197,13 @@ Ext.application({
         var out = [],
                 pl = p.length,
                 i,
-                si = -1;
+                group;
         for (i = 0; i < pl; i++) {
             if (p[i].subclass !== undefined) {
-                si++;
-                p[i].items = [];
-                out[si] = p[i];
+                group = p[i].name;
             } else {
-                out[si].items.push(p[i]);
+                p[i].group = group;
+                out.push(p[i]);
             }
         }
         return out;

@@ -12,7 +12,7 @@ Ext.define('POZdroid.view.Menu', {
             ui: 'plain'
         },
         items: [{
-                text: POZdroid.Config.str.pl.news,
+                text: POZdroid.Config.str.pl.guides,
                 iconCls: 'home',
                 activateItem: 'pozGuides',
                 activateAction: function (item, btn) {
