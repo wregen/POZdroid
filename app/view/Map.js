@@ -1,15 +1,11 @@
 Ext.define('POZdroid.view.Map', {
-    extend: 'POZdroid.ux.Map',
-    requires: [
-    ],
+    extend: 'Ext.Map',
     xtype: 'pozMap',
     config: {
         /**
          * @event mapcleared
          */
         defaultCenter: POZdroid.Config.gmap.defaultcenter,
-        gmapUrl: POZdroid.Config.urls.gmap,
-        markerClusterUrl: POZdroid.Config.urls.markercluster,
         maxBounds: POZdroid.Config.gmap.maxbounds,
         markersUrl: null,
         markerIconUrl: null,
@@ -37,7 +33,7 @@ Ext.define('POZdroid.view.Map', {
             geoerror: 'processMyLocationError',
             activate: 'onActivateMap',
             deactivate: 'onDeactivateMap',
-            afterpainted: 'onAfterPainted'
+            painted: 'onPainted'
         },
         markers: [],
         markerIds: [],
@@ -53,7 +49,7 @@ Ext.define('POZdroid.view.Map', {
     constructor: function() {
         var me = this;
         me.callParent(arguments);
-        me.on('bounds_changed', me.showCustomMarkers, me, {buffer: 800});
+        me.setMarkerCluster(new MarkerClusterer(me.getMap(), me.getMarkers()));
     },
     clearMap: function() {
         var me = this,
@@ -71,24 +67,27 @@ Ext.define('POZdroid.view.Map', {
         me.getMarkerCluster().clearMarkers();
         me.fireEvent('mapcleared', this);
     },
-    onAfterPainted: function() {
+    onPainted: function() {
         var me = this;
-        me.setMarkerCluster(new MarkerClusterer(me.getMap(), me.getMarkers()));
+            me.on('bounds_changed', me.showCustomMarkers, me, {buffer: 800});
     },
     onDeactivateMap: function() {
         this.clearMap();
     },
     onActivateMap: function() {
-        var me = this;
+        var me = this,
+                gm = (window.google || {}).maps;
+        p = me.getDefaultCenter();
+        me.setMapCenter(new gm.LatLng(p[0], p[1]));
     },
     showCustomMarkers: function() {
         var me = this,
                 map = me.getMap(),
-                bounds = map.getBounds(),
+                bounds = map !== null ? map.getBounds() : null,
                 url = me.getMarkersUrl(),
                 arr,
                 params;
-        if (bounds !== undefined) {
+        if (bounds !== null) {
             arr = bounds.toUrlValue().split(',');
             params = [arr[1], arr[0], arr[3], arr[2]].join(',');
             Ext.Ajax.request({
@@ -121,25 +120,25 @@ Ext.define('POZdroid.view.Map', {
                 p = o.geometry.coordinates[0],
                 desc,
                 m = new gm.Marker({
-            position: new gm.LatLng(p[1], p[0]),
-            map: map,
-            clickable: true,
-            animation: gm.Animation.DROP,
-            icon: {
-                url: me.getMarkerIconUrl()
-            },
-            flat: true
-        });
+                    position: new gm.LatLng(p[1], p[0]),
+                    map: map,
+                    clickable: true,
+                    animation: gm.Animation.DROP,
+                    icon: {
+                        url: me.getMarkerIconUrl()
+                    },
+                    flat: true
+                });
         if (o.properties.ulica !== undefined) {
-            desc = {h1:o.properties.ulica, p: ''};
+            desc = {h1: o.properties.ulica, p: ''};
         } else {
-            desc = {h1:o.properties.opis, p: o.properties.opis_long};
+            desc = {h1: o.properties.opis, p: o.properties.opis_long};
         }
-        gm.event.addListener(m, 'click',function (m){
+        gm.event.addListener(m, 'click', function(m) {
             var mb = m.latLng.mb,
-                lb = m.latLng.lb,
-                params = lb + '%20' + mb;
-                POZdroid.app.streetView(params, desc);
+                    lb = m.latLng.lb,
+                    params = lb + '%20' + mb;
+            POZdroid.app.streetView(params, desc);
         });
         return m;
     },
@@ -197,5 +196,17 @@ Ext.define('POZdroid.view.Map', {
             return false;
         }
         return true;
+    },
+    // @private
+    onGeoUpdate: function(geo) {
+        if (geo) {
+            this.fireEvent('geoupdated', this, geo);
+        }
+    },
+    // @private
+    onGeoError: function(geo, bTimeout, bPermissionDenied, bLocationUnavailable, message) {
+        if (geo) {
+            this.fireEvent('geoerror', this, geo, bTimeout, bPermissionDenied, bLocationUnavailable, message);
+        }
     }
 });

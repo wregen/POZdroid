@@ -19,7 +19,7 @@ Ext.define('POZdroid.Config', {
     urls: {
         parkomaty: 'http://www.poznan.pl/featureserver/featureserver.cgi/parkomaty_wgs/all.json?bbox=',
         biletomaty: 'http://www.poznan.pl/featureserver/featureserver.cgi/biletomaty_wgs/all.json?bbox=',
-        gmap: 'http://maps.googleapis.com/maps/api/js?sensor=true',
+        gmap: 'http://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyDITpyopvp-GYLYqHybXfrJqYJFU9wkefc',
         markercluster: './resources/js/markerclusterer_compiled.js',
         streetImg: 'http://maps.googleapis.com/maps/api/streetview?key=AIzaSyDITpyopvp-GYLYqHybXfrJqYJFU9wkefc&size=285x230&fov=90&pitch=0&sensor=false&location=',
         guidesPrefix: 'http://www.poznan.pl/mim/public/',

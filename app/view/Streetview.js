@@ -38,6 +38,7 @@ Ext.define('POZdroid.view.Streetview', {
                     }, {
                         xtype: 'button',
                         iconCls: 'delete',
+                        ui: 'decline',
                         align: 'left',
                         handler: function() {
                             Ext.Viewport.getComponent('streetView').hide();

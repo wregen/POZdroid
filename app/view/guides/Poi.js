@@ -52,11 +52,11 @@ Ext.define('POZdroid.view.guides.Poi', {
             return;
         }
 
-        me.setMasked({
-            xtype: 'loadmask',
-            indicator: true,
-            message: 'Ładowanie danych....'
-        });
+//        me.setMasked({
+//            xtype: 'loadmask',
+//            indicator: true,
+//            message: 'Ładowanie danych....'
+//        });
         Ext.Ajax.request({
             url: url,
             scope: me,
@@ -69,7 +69,7 @@ Ext.define('POZdroid.view.guides.Poi', {
                 res = POZdroid.app.parseGuides(text, false);
         res.shift();
         me.getRecord().set('gallery', res);
-        me.setMasked(false);
+//        me.setMasked(false);
     }
 
 });

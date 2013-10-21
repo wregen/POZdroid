@@ -28,9 +28,9 @@ public class POZdroid extends DroidGap
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        super.setIntegerProperty("splashscreen", R.drawable.splashscreen);        
         // Set by <content src="index.html" /> in config.xml
-        super.loadUrl(Config.getStartUrl());
-        //super.loadUrl("file:///android_asset/www/index.html")
+        super.loadUrl(Config.getStartUrl(), 3000);
     }
 }
 

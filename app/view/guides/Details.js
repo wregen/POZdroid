@@ -14,9 +14,6 @@
         scrollable: 'vertical',
         prId: null,
         title: POZdroid.Config.str.pl.guides,
-        listeners: {
-            painted: 'load'
-        },
         items: {
             docked: 'bottom',
             xtype: 'toolbar',

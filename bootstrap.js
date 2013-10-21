@@ -752,7 +752,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "POZdroid.model.Poi": [],
   "POZdroid.store.Guides": [],
   "POZdroid.store.Pois": [],
-  "POZdroid.ux.Map": [],
   "POZdroid.ux.MenuButton": [],
   "POZdroid.ux.ToggleButton": [],
   "POZdroid.view.About": [],
@@ -764,6 +763,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "POZdroid.view.Toast": [],
   "POZdroid.view.guides.Details": [],
   "POZdroid.view.guides.Main": [],
+  "POZdroid.view.guides.Map": [],
   "POZdroid.view.guides.Poi": [],
   "POZdroid.view.guides.Pois": []
 });
@@ -1712,9 +1712,6 @@ Ext.ClassManager.addNameAliasMappings({
   "POZdroid.model.Poi": [],
   "POZdroid.store.Guides": [],
   "POZdroid.store.Pois": [],
-  "POZdroid.ux.Map": [
-    "widget.map"
-  ],
   "POZdroid.ux.MenuButton": [
     "widget.menubutton"
   ],
@@ -1747,6 +1744,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "POZdroid.view.guides.Main": [
     "widget.pozGuidesMain"
+  ],
+  "POZdroid.view.guides.Map": [
+    "widget.pozGuidesMap"
   ],
   "POZdroid.view.guides.Poi": [
     "widget.pozGuidesPoi"

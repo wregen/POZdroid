@@ -50,11 +50,6 @@ Ext.application({
         // Require to allow CORS requests
         Ext.Ajax.setUseDefaultXhrHeader(false);
 
-        Ext.device.Splashscreen.show();
-        setTimeout(function() {
-            Ext.device.Splashscreen.hide();
-        }, 2000);
-
         var main = Ext.create('POZdroid.view.Main', {
             itemId: 'pozMain'
         }),
@@ -75,6 +70,7 @@ Ext.application({
 
         me.setMenuWidth(menu);
         Ext.Viewport.on('resize', Ext.bind(me.setMenuWidth, me, [menu], false));
+        Ext.Viewport.on('painted', Ext.device.Splashscreen.hide);
     },
     streetView: function(url, desc) {
         var me = this,
@@ -212,7 +208,7 @@ Ext.application({
         var a = p.split('\n'), al = a.length, i,
                 b = [], bl = 0, j,
                 c = {}, cl = 0, k,
-                d, out;
+                d0, d1, out;
         for (i = 0; i < al - 1; i++) {
             b.push(a[i].split('0x1234'));
         }
@@ -222,8 +218,9 @@ Ext.application({
             c = {};
             cl = b[j].length;
             for (k = 0; k < cl - 1; k++) {
-                d = b[j][k].split(':');
-                c[d[0]] = d[1];
+                d0 = b[j][k].split(':', 1)[0];
+                d1 = b[j][k].substring(b[j][k].indexOf(':') + 1);
+                c[d0] = d1;
             }
             out.push(c);
         }
