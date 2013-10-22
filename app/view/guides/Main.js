@@ -9,10 +9,10 @@
     config: {
         xtype: 'list',
         store: 'Guides',
-        itemTpl: '{pl}',
+        itemTpl: '{' + POZdroid.Config.getDefaultLang() + '}',
         masked: {
             xtype: 'loadmask',
-            message: 'Ładowanie danych'
+            message: POZdroid.Config.str('loading')
         }
     },
     load: function () {

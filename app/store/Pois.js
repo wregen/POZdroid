@@ -8,7 +8,7 @@ Ext.define('POZdroid.store.Pois', {
             type: 'memory'
         },
         model: 'POZdroid.model.Poi',
-        url: POZdroid.Config.urls.guidesPois,
+        url: POZdroid.Config.url('guidesPois'),
         grouper: {
             groupFn: function(record) {
                 return record.get('group');

@@ -12,24 +12,23 @@ Ext.define('POZdroid.view.guides.Poi', {
             '{desc}',
             '<address>{address}</address>',
             '<tpl if="gallery != \'\'">',
-            '<h3>Galeria</h3>',
+            '<h3>',
+            POZdroid.Config.str('gallery'),
+            '</h3>',
             '</tpl>',
             '<tpl for="gallery">',
             '<p>',
             '{name}',
             '<br />',
             '<img width="100%" src="',
-            POZdroid.Config.urls.guidesPrefix,
+            POZdroid.Config.url('guidesPrefix'),
             '{url}" />',
             '</p>',
             '</tpl>'
         ],
         scrollable: 'vertical',
         prId: null,
-        title: POZdroid.Config.str.pl.guides,
-        listeners: {
-            painted: 'load'
-        },
+        title: POZdroid.Config.str('guides'),
         items: {
             docked: 'bottom',
             xtype: 'toolbar',
@@ -38,7 +37,7 @@ Ext.define('POZdroid.view.guides.Poi', {
                     xtype: 'spacer'
                 }, {
                     itemId: 'activatePoiMap',
-                    text: 'Pokaż na mapie'
+                    text: POZdroid.Config.str('showOnMap')
                 }, {
                     xtype: 'spacer'
                 }]
@@ -47,16 +46,10 @@ Ext.define('POZdroid.view.guides.Poi', {
     load: function() {
         var me = this,
                 poi = me.getRecord().get('poi'),
-                url = POZdroid.Config.urls.guidesGalery + poi;
+                url = POZdroid.Config.url('guidesGalery') + poi;
         if (poi === null) {
             return;
         }
-
-//        me.setMasked({
-//            xtype: 'loadmask',
-//            indicator: true,
-//            message: 'Ładowanie danych....'
-//        });
         Ext.Ajax.request({
             url: url,
             scope: me,
@@ -69,7 +62,6 @@ Ext.define('POZdroid.view.guides.Poi', {
                 res = POZdroid.app.parseGuides(text, false);
         res.shift();
         me.getRecord().set('gallery', res);
-//        me.setMasked(false);
     }
 
 });

@@ -18,7 +18,7 @@ Ext.define('POZdroid.view.Main', {
                 docked: 'top',
 //                ui: 'plain',
                 xtype: 'titlebar',
-                title: POZdroid.Config.str.pl.guides,
+                title: POZdroid.Config.str('guides'),
                 items: [{
                         xtype: 'togglebtn',
                         itemId: 'pozMap',
@@ -29,7 +29,7 @@ Ext.define('POZdroid.view.Main', {
                     }, {
                         xtype: 'button',
                         itemId: 'pozGuidesBack',
-                        text: 'Back',
+                        text: POZdroid.Config.str('back'),
                         ui: 'back',
                         align: 'left',
                         hidden: true

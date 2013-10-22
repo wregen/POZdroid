@@ -1,9 +1,4 @@
-2013-10-06
-1. If menu show back button should close the menu
-DONE 2. Asynchronouse loading of Google Maps
-3. If no connection or if connection lost display the native message
-4. Show path to the closest Parkomat
+2013-10-22
+If menu show back button should close the menu
 
-
-5. The same as with parkomats do with biletomats
-6. Display whats is going on in Poznan
+2013-10-23

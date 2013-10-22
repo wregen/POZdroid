@@ -2,18 +2,19 @@
     extend: 'Ext.Container',
     xtype: 'pozGuidesDetails',
     requires: [
-        'POZdroid.Config'
+        'POZdroid.Config',
+        'POZdroid.model.Detail'
     ],
     config: {
         styleHtmlContent: true,
         cls: 'guides-details',
         tpl: [
-            '<img src="', POZdroid.Config.urls.guidesPrefix, '{imgUrl}" width="100%" />',
+            '<img src="', POZdroid.Config.url('guidesPrefix'), '{imgUrl}" width="100%" />',
             '{desc}'
         ],
         scrollable: 'vertical',
         prId: null,
-        title: POZdroid.Config.str.pl.guides,
+        title: POZdroid.Config.str('guides'),
         items: {
             docked: 'bottom',
             xtype: 'toolbar',
@@ -22,10 +23,10 @@
                     xtype: 'spacer'
                 }, {
                     itemId: 'activateGuidesPois',
-                    text: 'Obiekty w okolicy'
+                    text: POZdroid.Config.str('objectsAround')
                 }, {
                     itemId: 'activateGuidesMap',
-                    text: 'Mapa okolicy'
+                    text: POZdroid.Config.str('mapAround')
                 }, {
                     xtype: 'spacer'
                 }]
@@ -38,11 +39,11 @@
         if (prId === null) {
             return;
         }
-        url = POZdroid.Config.urls.guidesDetails + prId;
+        url = POZdroid.Config.url('guidesDetails') + prId;
         me.setMasked({
             xtype: 'loadmask',
             indicator: true,
-            message: 'Ładowanie danych....'
+            message: POZdroid.Config.str('loading')
         });
         Ext.Ajax.request({
             url: url,
@@ -68,7 +69,7 @@
     processError: function() {
         var me = this;
         me.setMasked(false);
-        POZdroid.app.toast('An error has occured. Please try again.', '#ff2200');
+        POZdroid.app.toast(POZdroid.Config.str('connError'), '#ff2200');
         me.getParent().onBackButtonTap();
     }
 

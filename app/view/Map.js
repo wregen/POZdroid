@@ -5,8 +5,8 @@ Ext.define('POZdroid.view.Map', {
         /**
          * @event mapcleared
          */
-        defaultCenter: POZdroid.Config.gmap.defaultcenter,
-        maxBounds: POZdroid.Config.gmap.maxbounds,
+        defaultCenter: POZdroid.Config.gmap('defaultcenter'),
+        maxBounds: POZdroid.Config.gmap('maxbounds'),
         markersUrl: null,
         markerIconUrl: null,
         useCurrentLocation: false,
@@ -69,7 +69,7 @@ Ext.define('POZdroid.view.Map', {
     },
     onPainted: function() {
         var me = this;
-            me.on('bounds_changed', me.showCustomMarkers, me, {buffer: 800});
+        me.on('bounds_changed', me.showCustomMarkers, me, {buffer: 800});
     },
     onDeactivateMap: function() {
         this.clearMap();
@@ -144,7 +144,7 @@ Ext.define('POZdroid.view.Map', {
     },
     setTrackMyLocation: function(track, showMgs) {
         var me = this,
-                msg = track ? 'Location tracking is ON' : 'Location tracking is OFF',
+                msg = track ? POZdroid.Config.str('trackingOn') : POZdroid.Config.str('trackingOff'),
                 myLocationMarker = me.getMyLocationMarker();
         me.updateUseCurrentLocation(track);
         if (showMgs !== false) {
@@ -162,14 +162,14 @@ Ext.define('POZdroid.view.Map', {
             me.setMapCenter(latLng);
             me.placeMyLocationMarker(latLng);
         } else {
-            POZdroid.app.toast('Your location is outside of Poznan.', '#ff9922', 5000);
+            POZdroid.app.toast(POZdroid.Config.str('outOfPoznan'), '#ff9922', 5000);
         }
     },
     processMyLocationError: function(mapObj, geo, bTimeout, bPermissionDenied, bLocationUnavailable, message) {
         if (bTimeout) {
-            message = 'Timeout occurred.';
+            message = POZdroid.Config.str('timeout');
         }
-        POZdroid.app.toast('Error: ' + message, '#ff2222');
+        POZdroid.app.toast(POZdroid.Config.str('error') + message, '#ff2222');
     },
     placeMyLocationMarker: function(latLng) {
         var me = this,

@@ -12,38 +12,38 @@ Ext.define('POZdroid.view.Menu', {
             ui: 'plain'
         },
         items: [{
-                text: POZdroid.Config.str.pl.guides,
+                text: POZdroid.Config.str('guides'),
                 iconCls: 'home',
                 activateItem: 'pozGuides',
                 activateAction: function (item, btn) {
                     item.reset();
                 }
             }, {
-                text: POZdroid.Config.str.pl.parkomats,
+                text: POZdroid.Config.str('parkomats'),
                 iconCls: 'maps',
                 activateItem: 'pozMap',
                 activateConfig: {
-                    markersUrl: POZdroid.Config.urls.parkomaty,
-                    markerIconUrl: POZdroid.Config.icons.parkomat
+                    markersUrl: POZdroid.Config.url('parkomats'),
+                    markerIconUrl: POZdroid.Config.icon('parkomat')
                 },
                 activateAction: function(item, btn) {
                     item.clearMap();
                     item.fireEvent('bounds_changed', item);
                 }
             }, {
-                text: POZdroid.Config.str.pl.ticketMachines,
+                text: POZdroid.Config.str('ticketMachines'),
                 iconCls: 'maps',
                 activateItem: 'pozMap',
                 activateConfig: {
-                    markersUrl: POZdroid.Config.urls.biletomaty,
-                    markerIconUrl: POZdroid.Config.icons.biletomat
+                    markersUrl: POZdroid.Config.url('ticketMachines'),
+                    markerIconUrl: POZdroid.Config.icon('ticketMachine')
                 },
                 activateAction: function(item, btn) {
                     item.clearMap();
                     item.fireEvent('bounds_changed', item);
                 }
             }, {
-                text: POZdroid.Config.str.pl.about,
+                text: POZdroid.Config.str('about'),
                 iconCls: 'settings',
                 activateItem: 'pozAbout'
             }],

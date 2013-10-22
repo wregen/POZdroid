@@ -8,7 +8,7 @@ Ext.define('POZdroid.store.Guides', {
             type: 'memory'
         },
         model: 'POZdroid.model.Guide',
-        url: POZdroid.Config.urls.guides
+        url: POZdroid.Config.url('guides')
     },
     loadGuides: function() {
         var me = this;

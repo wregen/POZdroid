@@ -22,7 +22,8 @@ Ext.application({
         'POZdroid.view.Toast',
         'Ext.device.Splashscreen',
         'Ext.device.Connection',
-        'Ext.device.Notification'
+        'Ext.device.Notification',
+        'Ext.device.Globalization'
     ],
     views: [
     ],
@@ -72,10 +73,10 @@ Ext.application({
         Ext.Viewport.on('resize', Ext.bind(me.setMenuWidth, me, [menu], false));
         Ext.Viewport.on('painted', Ext.device.Splashscreen.hide);
     },
-    streetView: function(url, desc) {
+    streetView: function(params, desc) {
         var me = this,
                 o = Ext.Viewport.getComponent('streetView');
-        me.imgUrl = POZdroid.Config.urls.streetImg + url;
+        me.imgUrl = POZdroid.Config.url('streetImg') + params;
         me.imgDesc = desc;
         me.streetViewShowImg();
         o.show();
@@ -126,29 +127,29 @@ Ext.application({
         var me = this;
         navigator.notification.vibrate(500);
         Ext.Msg.show({
-            title: 'Internet Connection Required',
-            message: 'The app requires active internet connetion. Click OK, start network and run the app again. Thank you!',
+            title: POZdroid.Config.str('connRequiredTitle'),
+            message: POZdroid.Config.str('connRequired'),
             fn: function() {
                 me.exitApp();
             },
             buttons: [
-                {text: 'OK', itemId: 'ok', ui: 'confirm'}
+                {text: POZdroid.Config.str('ok'), itemId: 'ok', ui: 'confirm'}
             ]
         });
     },
     showCloseWarning: function() {
         var me = this;
         Ext.Msg.show({
-            title: 'Question',
-            message: 'Do you want to close the application?',
+            title: POZdroid.Config.str('question'),
+            message: POZdroid.Config.str('doYouWantExit'),
             fn: function(btnId) {
-                if (btnId === 'ok') {
+                if (btnId === POZdroid.Config.str('ok')) {
                     me.exitApp();
                 }
             },
             buttons: [
-                {text: 'Cancel', itemId: 'cancel', ui: 'decline'},
-                {text: 'OK', itemId: 'ok', ui: 'confirm'}
+                {text: POZdroid.Config.str('cancel'), itemId: 'cancel', ui: 'decline'},
+                {text: POZdroid.Config.str('ok'), itemId: 'ok', ui: 'confirm'}
             ]
         });
     },
@@ -165,15 +166,19 @@ Ext.application({
         return c;
     },
     onUpdated: function() {
-        Ext.Msg.confirm(
-                "Application Update",
-                "This application has just successfully been updated to the latest version. Reload now?",
-                function(buttonId) {
-                    if (buttonId === 'yes') {
-                        window.location.reload();
-                    }
+        Ext.Msg.show({
+            title: POZdroid.Config.str('updateTitle'),
+            message: POZdroid.Config.str('update'),
+            fn: function(btnId) {
+                if (btnId === POZdroid.Config.str('ok')) {
+                    window.location.reload();
                 }
-        );
+            },
+            buttons: [
+                {text: POZdroid.Config.str('cancel'), itemId: 'cancel', ui: 'decline'},
+                {text: POZdroid.Config.str('ok'), itemId: 'ok', ui: 'confirm'}
+            ]
+        });
     },
     doRequest: function(url, cb) {
         var me = this;
@@ -185,7 +190,7 @@ Ext.application({
                 cb(o);
             },
             failure: function() {
-                POZdroid.app.toast('An error has occured!<br /> Data not loaded.', '#ff2200', 4000);
+                POZdroid.app.toast(POZdroid.Config.str('connError'), '#ff2200', 4000);
             }
         });
     },

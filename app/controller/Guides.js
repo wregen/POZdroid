@@ -1,72 +1,62 @@
 Ext.define('POZdroid.controller.Guides', {
     extend: 'Ext.app.Controller',
-    requires: [
-        'POZdroid.model.Detail'
-    ],
     config: {
-        stores: [
-            'Guides',
-            'Pois'
-        ],
         refs: {
             backBtn: 'pozMain #pozToolbar button[itemId=pozGuidesBack]',
             guides: 'pozGuides',
-            guidesMain: 'pozGuidesMain',
             guidesDetails: 'pozGuidesDetails',
-            guidesPois: 'pozGuidesPois',
-            guidesPoi: 'pozGuidesPoi',
-            guidesMap: 'pozGuidesMap',
-            activatePoisBtn: 'pozGuidesDetails button[itemId=activateGuidesPois]',
-            activateMapBtn: 'pozGuidesDetails button[itemId=activateGuidesMap]',
-            activatePoiMapBtn: 'pozGuidesPoi button[itemId=activatePoiMap]'
+            guidesPoi: 'pozGuidesPoi'
         },
         control: {
             'pozGuides > container': {
                 activate: 'setBackVisibility'
             },
-            'guidesMain': {
-                activate: 'pozGuidesLoad',
-                itemtap: 'pozGuidesItemTap'
-            },
             'pozMain #pozToolbar button[itemId=pozGuidesBack]': {
                 tap: 'onBackBtnTap'
             },
+            'pozGuidesMain': {
+                activate: 'load',
+                itemtap: 'loadDetails'
+            },
             'pozGuidesDetails button[itemId=activateGuidesPois]': {
-                tap: 'activatePois'
+                tap: 'loadPois'
             },
             'pozGuidesDetails button[itemId=activateGuidesMap]': {
-                tap: 'activateMap'
+                tap: 'loadPoisMap'
             },
             'pozGuidesPois': {
-                itemtap: 'pozGuidesPoisItemTap'
+                itemtap: 'loadPoiDetails'
             },
             'pozGuidesPoi button[itemId=activatePoiMap]': {
-                tap: 'activatePoiMap'
+                tap: 'loadPoiMap'
             },
             'pozGuidesMap': {
-                poitap: 'pozGuidesPoisItemTap'
+                poitap: 'loadPoiDetails'
             }
         }
-    },
-    pozGuidesLoad: function(i) {
-        i.load();
     },
     setBackVisibility: function(item) {
         var me = this,
                 backBtn = me.getBackBtn();
         if (item.getXTypes().indexOf('pozGuidesMain') !== -1) {
             backBtn.hide();
-            POZdroid.app.setTitle(POZdroid.Config.str.pl.guides);
+            POZdroid.app.setTitle(POZdroid.Config.str('guides'));
         } else {
             backBtn.show();
         }
     },
-    onBackBtnTap: function(btn) {
+    /**
+     * Wraps backButton tap of hidden NavigationBar
+     */
+    onBackBtnTap: function() {
         var me = this,
                 guides = me.getGuides();
         guides.onBackButtonTap();
     },
-    pozGuidesItemTap: function(list, index, target, record, e, eOpts) {
+    load: function(i) {
+        i.load();
+    },
+    loadDetails: function(list, index, target, record, e, eOpts) {
         var me = this,
                 guides = me.getGuides(),
                 prId = record.get('guide'),
@@ -76,19 +66,18 @@ Ext.define('POZdroid.controller.Guides', {
                 });
         guidesDetails.load();
     },
-    activatePois: function(btn) {
+    loadPois: function() {
         var me = this,
                 guides = me.getGuides(),
                 guidesDetails = me.getGuidesDetails(),
                 prId = guidesDetails.getPrId(),
-                store = Ext.getStore('Pois');
-        store.removeAll();
-        store.loadPois(prId);
-        guides.push({
-            xtype: 'pozGuidesPois'
-        });
+                guidesPois = guides.push({
+                    xtype: 'pozGuidesPois',
+                    prId: prId
+                });
+        guidesPois.load();
     },
-    activateMap: function() {
+    loadPoisMap: function() {
         var me = this,
                 guides = me.getGuides(),
                 guidesDetails = me.getGuidesDetails(),
@@ -98,7 +87,7 @@ Ext.define('POZdroid.controller.Guides', {
                 searchPhrase = guidesDetails.getRecord().get('title'),
                 guidesMap;
 
-        geoCoder.geocode({address: 'poznan, poland, ' + searchPhrase}, function(r, s) {
+        geoCoder.geocode({address: 'poland poznan ' + searchPhrase}, function(r, s) {
             if (s === 'OK') {
                 guidesMap = guides.push({
                     xtype: 'pozGuidesMap',
@@ -113,7 +102,16 @@ Ext.define('POZdroid.controller.Guides', {
         });
 
     },
-    activatePoiMap: function() {
+    loadPoiDetails: function(list, index, target, record, e, eOpts) {
+        var me = this,
+                guides = me.getGuides(),
+                guidesPoi = guides.push({
+                    xtype: 'pozGuidesPoi',
+                    record: record
+                });
+        guidesPoi.load();
+    },
+    loadPoiMap: function() {
         var me = this,
                 guides = me.getGuides(),
                 record = me.getGuidesPoi().getRecord(),
@@ -125,13 +123,5 @@ Ext.define('POZdroid.controller.Guides', {
                     center: center
                 });
         guidesMap.load();
-    },
-    pozGuidesPoisItemTap: function(list, index, target, record, e, eOpts) {
-        var me = this,
-                guides = me.getGuides();
-        guides.push({
-            xtype: 'pozGuidesPoi',
-            record: record
-        });
     }
 });
