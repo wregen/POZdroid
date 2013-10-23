@@ -1,4 +1,4 @@
-POZdriod
+POZdriod (Poznań po drode)
 ======
 
-poznan
+App for Samsung App Challenge Poznań

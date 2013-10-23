@@ -8,7 +8,7 @@
     <description>
         App for Samsung App Challenge Poznan
     </description>
-    <author email="W.Regenczuk@gmail.com">
+    <author email="wregenhobby@gmail.com">
         W.Regenczuk
     </author>
     <content src="index.html" />
@@ -31,5 +31,8 @@
     </feature>
     <feature name="Notification">
         <param name="android-package" value="org.apache.cordova.Notification" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.InAppBrowser" />
     </feature>
 </widget>

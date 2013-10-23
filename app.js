@@ -22,10 +22,7 @@ Ext.application({
         'POZdroid.view.Toast',
         'Ext.device.Splashscreen',
         'Ext.device.Connection',
-        'Ext.device.Notification',
-        'Ext.device.Globalization'
-    ],
-    views: [
+        'Ext.device.Notification'
     ],
     stores: [
         'Guides',
@@ -143,7 +140,7 @@ Ext.application({
             title: POZdroid.Config.str('question'),
             message: POZdroid.Config.str('doYouWantExit'),
             fn: function(btnId) {
-                if (btnId === POZdroid.Config.str('ok')) {
+                if (btnId === POZdroid.Config.str('ok').toLowerCase()) {
                     me.exitApp();
                 }
             },

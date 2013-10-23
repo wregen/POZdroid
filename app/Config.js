@@ -1,5 +1,8 @@
 Ext.define('POZdroid.Config', {
     singleton: true,
+    requires: [
+        'Ext.Template'
+    ],
     config: {
         icon: {
             parkomat: './resources/images/parkomat-24.png',
@@ -29,7 +32,7 @@ Ext.define('POZdroid.Config', {
                 notFound: 'nie znaleziono.',
                 loading: 'Ładowanie danych',
                 connRequiredTitle: 'Wymagane połączenie z Internetem',
-                connRequired: 'Do poprawnego działanie aplikacji niezbędne jest połączenie z Internete. Wciśnij "OK", połącz się z Internetem; następnie uruchom aplikację ponownie.',
+                connRequired: 'Do poprawnego działanie aplikacji niezbędne jest połączenie z Internetem. Wciśnij "OK", połącz się z Internetem; następnie uruchom aplikację ponownie.',
                 doYouWantExit: 'Czy zamierzasz zamknąć aplikację?',
                 updateTitle: 'Aktualizacja aplikacji',
                 update: 'Czy chcesz teraz dokonać aktualizacji?',
@@ -43,7 +46,27 @@ Ext.define('POZdroid.Config', {
                 showOnMap: 'Pokaż na mapie',
                 objectsAround: 'Obiekty w okolicy',
                 mapAround: 'Mapa okolicy',
-                appInfoText: '<h1>O aplikacji</h1>'
+                appInfoText: [
+                    '<h3>O aplikacji</h3>',
+                    '<p>',
+                    '"Poznań po drodze" wykorzystuje dane udostępniane przez API serwisu miejskiego Poznania. ',
+                    'Szczegóły na strone: <a href="#" onclick="window.open(\'http://egov.psnc.pl/node/29\', \'_system\')">http://egov.psnc.pl/node/29</a>',
+                    '</p>',
+                    '<p>',
+                    '"Poznań po drodze" jest aplikacją Open Source dostępną na licencji GNU GENERAL PUBLIC LICENSE w wersji 3. ',
+                    'Źródła znajdują się tutaj: <a href="#" onclick="window.open(\'https://github.com/wregen/POZdroid\',\'_system\')">https://github.com/wregen/POZdroid</a>.',
+                    '</p>',
+                    '<p>"Poznań po drodze" oparty jest na platformach:',
+                    '<ul>',
+                    '<li><a href="#" onclick="window.open(\'http://cordova.apache.org/\', \'_system\')">Apache Cordova</a></li>',
+                    '<li><a href="#" onclick="window.open(\'http://www.sencha.com/products/touch/\', \'_system\')">Sencha Touch</a></li>',
+                    '</ul>',
+                    '</p>',
+                    '<hr>',
+                    '<p>Autorem aplikacji jest <a href="mailto:wregenhobby@gmain.com">Wojciech Regeńczuk</a>.</p>',
+                    '<hr>',
+                    '<p></p>'
+                ].join('')
             },
             en: {
                 ok: 'OK',
@@ -73,7 +96,6 @@ Ext.define('POZdroid.Config', {
                 mapAround: 'Map',
                 appInfoText: '<h1>About</h1>'
             }
-
         },
         gmap: {
             defaultcenter: [52.40523, 16.93301],
