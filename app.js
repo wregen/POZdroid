@@ -222,6 +222,7 @@ Ext.application({
             for (k = 0; k < cl - 1; k++) {
                 d0 = b[j][k].split(':', 1)[0];
                 d1 = b[j][k].substring(b[j][k].indexOf(':') + 1);
+//                c[d0] = d1.replace(/<\/?[^>]+>/gi, '');
                 c[d0] = d1;
             }
             out.push(c);

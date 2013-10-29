@@ -30,7 +30,20 @@
                 }, {
                     xtype: 'spacer'
                 }]
+        },
+        listeners: {
+            element: 'element',
+            delegate: 'a',
+            tap: 'tapHandler'
         }
+    },
+    tapHandler: function(e, t) {
+        e.stopEvent();
+        e.preventDefault();
+        e.stopPropagation();
+        var href = t.href;
+        t.href = "#";
+        window.open(href, '_system');
     },
     load: function() {
         var me = this,
@@ -48,11 +61,11 @@
         Ext.Ajax.request({
             url: url,
             scope: me,
-            success: me.prodessSuccess,
+            success: me.processSuccess,
             failure: me.processError
         });
     },
-    prodessSuccess: function(r) {
+    processSuccess: function(r) {
         var me = this,
                 text = r.responseText,
                 res;

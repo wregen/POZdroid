@@ -1,12 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget 
     id="POZdroid.org" 
-    version="1.0.0" 
+    version="1.0.1" 
     xmlns="http://www.w3.org/ns/widgets" 
     xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Poznań po drodze</name>
     <description>
-        App for Samsung App Challenge Poznan
+        Aplikacja posiad następujące funkcje:
+        - Przewodniki po Poznaniu
+        - Mapa parkomatów
+        - Mapa biletomatów
+        Aplikacja wykorzystuje API dostarczane przez serwis http://www.poznan.pl/. 
     </description>
     <author email="wregenhobby@gmail.com">
         W.Regenczuk
